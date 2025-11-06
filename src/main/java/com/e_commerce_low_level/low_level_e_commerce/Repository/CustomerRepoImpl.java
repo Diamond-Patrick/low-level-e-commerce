@@ -46,9 +46,31 @@ public class CustomerRepoImpl implements CustomerRepo {
     }
 
     @Override
-    public void remove(CustomerEntity customerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    public boolean remove(CustomerEntity customerEntity) {
+
+        EntityManager entityManager = UtilityEntityManagerFactory
+                .getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CustomerEntity idCustomer = entityManager.find(CustomerEntity.class, customerEntity.getIdCustomer());
+
+            entityManager.remove(idCustomer);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
     @Override

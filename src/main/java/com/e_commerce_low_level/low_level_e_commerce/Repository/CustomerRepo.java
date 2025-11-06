@@ -6,7 +6,7 @@ public interface CustomerRepo {
 
     boolean insert(CustomerEntity customerEntity);
 
-    void remove(CustomerEntity customerEntity);
+    boolean remove(CustomerEntity customerEntity);
 
     void update(String id, CustomerEntity customerEntity);
 

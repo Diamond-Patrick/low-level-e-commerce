@@ -30,4 +30,24 @@ public class CustomerRepoTest {
 
         Assertions.assertTrue(insert);
     }
+
+    @Test
+    void testRemove() {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer("85e4");
+
+        boolean remove = customerRepo.remove(customerEntity);
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveFail() {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer("hhhh");
+
+        boolean remove = customerRepo.remove(customerEntity);
+
+        Assertions.assertFalse(remove);
+    }
 }
