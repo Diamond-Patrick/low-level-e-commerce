@@ -50,4 +50,37 @@ public class CustomerRepoTest {
 
         Assertions.assertFalse(remove);
     }
+
+    @Test
+    void testUpdate() {
+
+        Address address = new Address();
+        address.setKelurahan("depok");
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setEmail("taufiq@gmail.com");
+        customerEntity.setName("taufiq");
+        customerEntity.setAddress(address);
+
+        boolean update = customerRepo.update("7092", customerEntity);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateFail() {
+
+        Address address = new Address();
+        address.setKelurahan("depok");
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setEmail("taufiq@gmail.com");
+        customerEntity.setName("taufiq");
+        customerEntity.setAddress(address);
+
+        boolean update = customerRepo.update("7777", customerEntity);
+
+        Assertions.assertFalse(update);
+    }
+
 }

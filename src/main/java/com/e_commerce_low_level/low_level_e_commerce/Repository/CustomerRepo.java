@@ -8,7 +8,7 @@ public interface CustomerRepo {
 
     boolean remove(CustomerEntity customerEntity);
 
-    void update(String id, CustomerEntity customerEntity);
+    boolean update(String id, CustomerEntity customerEntity);
 
     CustomerEntity find(CustomerEntity customerEntity);
 }
