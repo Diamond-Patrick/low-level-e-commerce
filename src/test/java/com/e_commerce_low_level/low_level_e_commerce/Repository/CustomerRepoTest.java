@@ -83,4 +83,25 @@ public class CustomerRepoTest {
         Assertions.assertFalse(update);
     }
 
+    @Test
+    void testFindSuccess() {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer("af70");
+
+        CustomerEntity find = customerRepo.find(customerEntity);
+
+        Assertions.assertNotNull(find);
+
+        System.out.println(find.getName());
+    }
+
+    @Test
+    void testFindFail() {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer("0000");
+
+        CustomerEntity find = customerRepo.find(customerEntity);
+
+        Assertions.assertNull(find);
+    }
 }
