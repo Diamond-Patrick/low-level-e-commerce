@@ -3,6 +3,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -74,5 +75,16 @@ public class ProductRepoTest {
         boolean update = productRepo.update("tr30", productEntity);
 
         Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testFindAll() {
+        List<ProductEntity> all = productRepo.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (ProductEntity productEntity : all) {
+            System.out.println(productEntity.getName());
+        }
     }
 }

@@ -7,6 +7,10 @@ import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityMana
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -74,7 +78,7 @@ public class ProductRepoImpl implements ProductRepo {
             transaction.begin();
 
             ProductEntity kodeProduct = entityManager
-                    .find(ProductEntity.class, id);
+                    .find(ProductEntity.class, productEntity.getKodeProduct());
 
             if (kodeProduct != null) {
 
@@ -112,8 +116,35 @@ public class ProductRepoImpl implements ProductRepo {
 
     @Override
     public List<ProductEntity> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM product;
+            CriteriaQuery<ProductEntity> query = criteriaBuilder
+                    .createQuery(ProductEntity.class);
+            Root<ProductEntity> p = query.from(ProductEntity.class);
+            query.select(p);
+
+            TypedQuery<ProductEntity> typedQuery = entityManager.createQuery(query);
+            List<ProductEntity> resultList = typedQuery.getResultList();
+
+            return resultList;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
 }
