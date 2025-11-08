@@ -66,8 +66,48 @@ public class ProductRepoImpl implements ProductRepo {
 
     @Override
     public boolean update(String id, ProductEntity productEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            ProductEntity kodeProduct = entityManager
+                    .find(ProductEntity.class, id);
+
+            if (kodeProduct != null) {
+
+                if (productEntity.getName() != null)
+                    kodeProduct.setName(productEntity.getName());
+
+                if (productEntity.getHarga() != null)
+                    kodeProduct.setHarga(productEntity.getHarga());
+
+                if (productEntity.getStock() != null)
+                    kodeProduct.setStock(productEntity.getStock());
+
+                if (productEntity.getDescription() != null)
+                    kodeProduct.setDescription(productEntity.getDescription());
+
+                if (productEntity.getGambar() != null)
+                    kodeProduct.setGambar(productEntity.getGambar());
+
+                entityManager.merge(kodeProduct);
+            }
+
+            transaction.commit();
+            return kodeProduct != null ? true : false;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
     @Override
