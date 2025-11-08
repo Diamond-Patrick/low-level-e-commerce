@@ -38,13 +38,34 @@ public class ProductRepoImpl implements ProductRepo {
     }
 
     @Override
-    public void remove(ProductEntity productEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    public boolean remove(ProductEntity productEntity) {
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            ProductEntity kodeProduct = entityManager
+                    .find(ProductEntity.class, productEntity.getKodeProduct());
+            entityManager.remove(kodeProduct);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
     @Override
-    public void update(String id, ProductEntity productEntity) {
+    public boolean update(String id, ProductEntity productEntity) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }

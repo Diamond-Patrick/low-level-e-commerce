@@ -8,9 +8,9 @@ public interface ProductRepo {
 
     boolean insert(ProductEntity productEntity);
 
-    void remove(ProductEntity productEntity);
+    boolean remove(ProductEntity productEntity);
 
-    void update(String id, ProductEntity productEntity);
+    boolean update(String id, ProductEntity productEntity);
 
     List<ProductEntity> findAll();
 
