@@ -47,8 +47,30 @@ public class SellerRepoImpl implements SellerRepo {
 
     @Override
     public boolean remove(SellerEntity sellerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+        EntityManager entityManager = UtilityEntityManagerFactory
+                .getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            SellerEntity idSeller = entityManager
+                    .find(SellerEntity.class, sellerEntity.getId());
+
+            entityManager.remove(idSeller);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
     @Override

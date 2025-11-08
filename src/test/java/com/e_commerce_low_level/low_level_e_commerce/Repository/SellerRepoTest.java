@@ -24,4 +24,24 @@ public class SellerRepoTest {
         boolean insert = sellerRepo.insert(sellerEntity);
         Assertions.assertTrue(insert);
     }
+
+    @Test
+    void testRemoveSuccess() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("5da14");
+
+        boolean remove = sellerRepo.remove(sellerEntity);
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveFail() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("ddddd");
+
+        boolean remove = sellerRepo.remove(sellerEntity);
+
+        Assertions.assertFalse(remove);
+    }
 }
