@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
 
 public class CustomerRepoTest {
 

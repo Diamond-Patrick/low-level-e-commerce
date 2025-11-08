@@ -1,4 +1,4 @@
-package com.e_commerce_low_level.low_level_e_commerce.Repository;
+package com.e_commerce_low_level.low_level_e_commerce.Repository.Customer;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
 
