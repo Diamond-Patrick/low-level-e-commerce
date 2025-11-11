@@ -2,6 +2,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository.Seller;
 
 import java.util.UUID;
 
+import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityManagerFactory;
 
@@ -75,8 +76,62 @@ public class SellerRepoImpl implements SellerRepo {
 
     @Override
     public boolean update(String id, SellerEntity sellerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            SellerEntity idSeller = entityManager
+                    .find(SellerEntity.class, id);
+
+            if (idSeller != null) {
+
+                if (sellerEntity.getOwnerName() != null)
+                    idSeller.setOwnerName(sellerEntity.getOwnerName());
+
+                if (sellerEntity.getEmail() != null)
+                    idSeller.setEmail(sellerEntity.getEmail());
+
+                if (sellerEntity.getPassword() != null)
+                    idSeller.setPassword(sellerEntity.getPassword());
+
+                // update address data
+                Address idSellerAdd = idSeller.getAddress();
+                Address sellerAddEntity = sellerEntity.getAddress();
+
+                if (sellerAddEntity.getNoRumah() != null)
+                    idSellerAdd.setNoRumah(sellerAddEntity.getNoRumah());
+
+                if (sellerAddEntity.getNamaJalan() != null)
+                    idSellerAdd.setNamaJalan(sellerAddEntity.getNamaJalan());
+
+                if (sellerAddEntity.getKelurahan() != null)
+                    idSellerAdd.setKelurahan(sellerAddEntity.getKelurahan());
+
+                if (sellerAddEntity.getKota() != null)
+                    idSellerAdd.setKota(sellerAddEntity.getKota());
+
+                if (sellerAddEntity.getProvinsi() != null)
+                    idSellerAdd.setProvinsi(sellerAddEntity.getProvinsi());
+
+                entityManager.merge(idSeller);
+            }
+
+            transaction.commit();
+
+            return idSeller != null ? true : false;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
     @Override

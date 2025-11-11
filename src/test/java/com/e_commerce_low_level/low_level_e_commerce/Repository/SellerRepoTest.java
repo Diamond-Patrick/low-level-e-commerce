@@ -44,4 +44,36 @@ public class SellerRepoTest {
 
         Assertions.assertFalse(remove);
     }
+
+    @Test
+    void testUpdateSuccess() {
+
+        Address address = new Address();
+        address.setKota("Jogja");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setEmail("adam@gmail.com");
+        sellerEntity.setPassword("adam rahasia");
+        sellerEntity.setAddress(address);
+
+        boolean update = sellerRepo.update("40b62", sellerEntity);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateFail() {
+
+        Address address = new Address();
+        address.setKota("Jogja");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setEmail("adam@gmail.com");
+        sellerEntity.setPassword("adam rahasia");
+        sellerEntity.setAddress(address);
+
+        boolean update = sellerRepo.update("6543", sellerEntity);
+
+        Assertions.assertFalse(update);
+    }
 }
