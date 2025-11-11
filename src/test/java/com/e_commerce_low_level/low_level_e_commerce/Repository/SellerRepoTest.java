@@ -76,4 +76,26 @@ public class SellerRepoTest {
 
         Assertions.assertFalse(update);
     }
+
+    @Test
+    void testFindSuccess() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("40b62");
+
+        SellerEntity find = sellerRepo.find(sellerEntity);
+
+        Assertions.assertNotNull(find);
+
+        System.out.println(find.getShopName());
+    }
+
+    @Test
+    void testFindFail() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("55555");
+
+        SellerEntity find = sellerRepo.find(sellerEntity);
+
+        Assertions.assertNull(find);
+    }
 }

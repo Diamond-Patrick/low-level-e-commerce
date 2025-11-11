@@ -136,8 +136,29 @@ public class SellerRepoImpl implements SellerRepo {
 
     @Override
     public SellerEntity find(SellerEntity sellerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        EntityManager entityManager = UtilityEntityManagerFactory
+                .getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            SellerEntity idSeller = entityManager
+                    .find(SellerEntity.class, sellerEntity.getId());
+
+            transaction.commit();
+
+            return idSeller;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
     }
 
 }
