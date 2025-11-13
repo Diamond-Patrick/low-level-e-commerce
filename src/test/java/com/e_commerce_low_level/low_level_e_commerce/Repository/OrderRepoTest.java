@@ -19,12 +19,16 @@ public class OrderRepoTest {
     @Test
     void testPurchase() {
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setIdCustomer("af70");
+        customerEntity.setIdCustomer("7092");
 
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setKodeProduct("Af123");
+        productEntity.setKodeProduct("tr300");
 
-        boolean purchase = orderRepo.purchase(customerEntity, productEntity, PaymentMethod.EWALLET);
+        OrderEntity order = new OrderEntity();
+        order.setPaymentMethod(PaymentMethod.CASH);
+        order.setOrderQuantities(3);
+
+        boolean purchase = orderRepo.purchase(customerEntity, productEntity, order);
 
         Assertions.assertTrue(purchase);
     }

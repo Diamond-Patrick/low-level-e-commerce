@@ -41,4 +41,7 @@ public class OrderEntity {
 
     @Column(name = "purchace_date")
     private LocalDate purchaceDate;
+
+    @Column(name = "order_qty")
+    private Integer orderQuantities;
 }

@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderRepoImpl implements OrderRepo {
 
     @Override
-    public boolean purchase(CustomerEntity customer, ProductEntity productEntity, PaymentMethod paymentMethod) {
+    public boolean purchase(CustomerEntity customer, ProductEntity productEntity, OrderEntity orderEntity) {
 
         EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
                 .createEntityManager();
@@ -34,10 +34,20 @@ public class OrderRepoImpl implements OrderRepo {
             OrderEntity order = new OrderEntity();
             order.setIdCustomer(customer);
             order.setKodeProduct(productEntity);
-            order.setPaymentMethod(paymentMethod);
+            order.setPaymentMethod(orderEntity.getPaymentMethod());
             order.setPurchaceDate(LocalDate.now());
+            order.setOrderQuantities(orderEntity.getOrderQuantities());
 
             entityManager.persist(order);
+
+            ProductEntity kodeProduct = entityManager
+                    .find(ProductEntity.class, productEntity.getKodeProduct());
+
+            if (kodeProduct != null) {
+                // 50 - 4
+                kodeProduct.setStock(kodeProduct.getStock() - orderEntity.getOrderQuantities());
+                entityManager.merge(kodeProduct);
+            }
 
             transaction.commit();
             return true;

@@ -9,7 +9,7 @@ import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
 
 public interface OrderRepo {
 
-    boolean purchase(CustomerEntity customer, ProductEntity productEntity, PaymentMethod paymentMethod);
+    boolean purchase(CustomerEntity customer, ProductEntity productEntity, OrderEntity orderEntity);
 
     List<OrderEntity> paymentMethodSort(PaymentMethod paymentMethod);
 
