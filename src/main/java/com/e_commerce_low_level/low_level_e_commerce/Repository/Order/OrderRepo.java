@@ -15,6 +15,6 @@ public interface OrderRepo {
 
     List<OrderEntity> findAll();
 
-    void countingOmset(ProductEntity productEntity);
+    Double countingOmset(ProductEntity productEntity);
 
 }

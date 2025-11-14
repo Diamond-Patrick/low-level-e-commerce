@@ -67,4 +67,10 @@ public class OrderRepoTest {
         }
     }
 
+    @Test
+    void testCountingOmset() {
+        Double countingOmset = orderRepo.countingOmset(null);
+
+        System.out.println(countingOmset);
+    }
 }
