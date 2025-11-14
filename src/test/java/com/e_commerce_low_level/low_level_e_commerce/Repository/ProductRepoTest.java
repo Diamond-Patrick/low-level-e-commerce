@@ -58,7 +58,7 @@ public class ProductRepoTest {
     @Test
     void testUpdateSuccess() {
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setName("Monitor");
+        productEntity.setName("Monitor xiaomi");
         productEntity.setStock(35);
 
         boolean update = productRepo.update("tr300", productEntity);
@@ -75,6 +75,16 @@ public class ProductRepoTest {
         boolean update = productRepo.update("tr30", productEntity);
 
         Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testUpdateStock() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setStock(10);
+
+        boolean update = productRepo.update("tr300", productEntity);
+
+        Assertions.assertTrue(update);
     }
 
     @Test

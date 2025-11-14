@@ -78,7 +78,7 @@ public class ProductRepoImpl implements ProductRepo {
             transaction.begin();
 
             ProductEntity kodeProduct = entityManager
-                    .find(ProductEntity.class, productEntity.getKodeProduct());
+                    .find(ProductEntity.class, id);
 
             if (kodeProduct != null) {
 
@@ -89,7 +89,7 @@ public class ProductRepoImpl implements ProductRepo {
                     kodeProduct.setHarga(productEntity.getHarga());
 
                 if (productEntity.getStock() != null)
-                    kodeProduct.setStock(productEntity.getStock());
+                    kodeProduct.setStock(productEntity.getStock() + kodeProduct.getStock()); // 4 + 34 = 38
 
                 if (productEntity.getDescription() != null)
                     kodeProduct.setDescription(productEntity.getDescription());
