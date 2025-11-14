@@ -54,4 +54,17 @@ public class OrderRepoTest {
         ;
     }
 
+    @Test
+    void testFndAll() {
+        List<OrderEntity> all = orderRepo.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (OrderEntity orderEntity : all) {
+            System.out.println(orderEntity.getIdCustomer().getName());
+            System.out.println(orderEntity.getKodeProduct().getName());
+            System.out.println(orderEntity.getKodeProduct().getHarga());
+        }
+    }
+
 }

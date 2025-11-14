@@ -104,4 +104,43 @@ public class OrderRepoImpl implements OrderRepo {
         }
     }
 
+    @Override
+    public List<OrderEntity> findAll() {
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<OrderEntity> query = criteriaBuilder
+                    .createQuery(OrderEntity.class);
+            Root<OrderEntity> oE = query.from(OrderEntity.class);
+            query.select(oE);
+
+            TypedQuery<OrderEntity> typedQuery = entityManager.createQuery(query);
+            List<OrderEntity> resultList = typedQuery.getResultList();
+
+            transaction.commit();
+            return resultList;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
+
+    @Override
+    public void countingOmset(ProductEntity productEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'countingOmset'");
+    }
+
 }

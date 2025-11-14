@@ -13,4 +13,8 @@ public interface OrderRepo {
 
     List<OrderEntity> paymentMethodSort(PaymentMethod paymentMethod);
 
+    List<OrderEntity> findAll();
+
+    void countingOmset(ProductEntity productEntity);
+
 }
