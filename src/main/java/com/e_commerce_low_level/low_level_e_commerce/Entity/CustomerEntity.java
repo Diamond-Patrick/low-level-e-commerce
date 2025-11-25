@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,13 +28,17 @@ public class CustomerEntity {
     @Column(name = "id_customer")
     private String idCustomer;
 
+    @NotBlank(message = "name must not be empty")
     private String name;
 
+    @Email(message = "your email not valid")
     private String email;
 
+    @NotBlank(message = "password must bot be empty")
     private String password;
 
     @Embedded
+    @Valid
     private Address address;
 
     @OneToMany(mappedBy = "idCustomer")
