@@ -56,4 +56,23 @@ public class CustomerServiceTest {
 
         Assertions.assertFalse(insert);
     }
+
+    @Test
+    void testRemoveSuccess() {
+        boolean remove = customerService.remove("88c0");
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveFail() {
+        boolean remove = customerService.remove("99c9");
+        Assertions.assertFalse(remove);
+    }
+
+    @Test
+    void testRemoveIdCustomerBlank() {
+        boolean remove = customerService.remove("     ");
+        Assertions.assertFalse(remove);
+    }
 }

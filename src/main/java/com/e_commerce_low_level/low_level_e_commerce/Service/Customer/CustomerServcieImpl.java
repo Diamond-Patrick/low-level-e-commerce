@@ -37,13 +37,27 @@ public class CustomerServcieImpl implements CustomerService {
         } else {
             return false;
         }
-
     }
 
     @Override
     public boolean remove(String idCustmer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer(idCustmer);
+
+        Set<ConstraintViolation<CustomerEntity>> validateProperty = validator
+                .validateProperty(customerEntity, "idCustomer");
+
+        if (validateProperty.isEmpty()) {
+            boolean remove = customerRepo.remove(customerEntity);
+            return remove;
+
+        } else {
+            return false;
+        }
     }
 
     @Override
