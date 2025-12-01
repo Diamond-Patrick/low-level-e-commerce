@@ -10,16 +10,17 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
-@Slf4j
-public class CustomerServiceImpl implements CustomerService {
+public class CustomerServcieImpl implements CustomerService {
 
     private CustomerRepo customerRepo;
 
     @Override
     public boolean insert(CustomerEntity customerEntity) {
+
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
 
         CustomerEntity customer = new CustomerEntity();
         customer.setName(customerEntity.getName());
@@ -27,14 +28,12 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setPassword(customerEntity.getPassword());
         customer.setAddress(customerEntity.getAddress());
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
-
         Set<ConstraintViolation<CustomerEntity>> validate = validator.validate(customer);
 
         if (validate.isEmpty()) {
-            customerRepo.insert(customer);
-            return true;
+            boolean insert = customerRepo.insert(customer);
+            return insert;
+
         } else {
             return false;
         }
@@ -42,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean remove(String idCustomer) {
+    public boolean remove(String idCustmer) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }

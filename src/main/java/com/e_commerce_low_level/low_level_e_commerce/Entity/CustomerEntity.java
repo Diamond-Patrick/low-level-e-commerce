@@ -28,13 +28,13 @@ public class CustomerEntity {
     @Column(name = "id_customer")
     private String idCustomer;
 
-    @NotBlank(message = "name must not be empty")
+    @NotBlank(message = "name must not be blank")
     private String name;
 
-    @Email(message = "your email not valid")
+    @Email(message = "invalid email")
     private String email;
 
-    @NotBlank(message = "password must bot be empty")
+    @NotBlank(message = "password must not be blank")
     private String password;
 
     @Embedded

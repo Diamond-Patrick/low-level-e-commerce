@@ -6,10 +6,9 @@ public interface CustomerService {
 
     boolean insert(CustomerEntity customerEntity);
 
-    boolean remove(String idCustomer);
+    boolean remove(String idCustmer);
 
     boolean update(String id, CustomerEntity customerEntity);
 
     CustomerEntity find(String idCustomer);
-
 }

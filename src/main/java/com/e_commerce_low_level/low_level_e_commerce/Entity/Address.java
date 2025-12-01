@@ -16,20 +16,20 @@ import lombok.Setter;
 public class Address {
 
     @Column(name = "no_rumah")
-    @NotBlank(message = "no rumah must not be empty")
+    @NotBlank(message = "no rumah must not be blank")
     private String noRumah;
 
     @Column(name = "nama_jalan")
-    @NotBlank(message = "nama jalan must not be empty")
+    @NotBlank(message = "nama jalan must not be blank")
     private String namaJalan;
 
-    @NotBlank(message = "kelurahan must not be empty")
+    @NotBlank(message = "kelurahan must not be blank")
     private String kelurahan;
 
-    @NotBlank(message = "kota must not be empty")
+    @NotBlank(message = "nama kota must not be blank")
     private String kota;
 
-    @NotBlank(message = "provinsi must not be empty")
+    @NotBlank(message = "provinsi must not be blank")
     private String provinsi;
 
 }

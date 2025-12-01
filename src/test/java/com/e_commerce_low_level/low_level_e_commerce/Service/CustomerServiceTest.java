@@ -7,24 +7,28 @@ import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
+import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerServcieImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerService;
-import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerServiceImpl;
 
 public class CustomerServiceTest {
 
     private CustomerRepo customerRepo = new CustomerRepoImpl();
-    private CustomerService customerService = new CustomerServiceImpl(customerRepo);
+    private CustomerService customerService = new CustomerServcieImpl(customerRepo);
 
     @Test
-    void testInsert() {
+    void testInsertSuccess() {
 
-        Address address = new Address("A.09", "Jalan Manggis", "Kelurahan 1",
-                "Solo", "Jawa Tengah");
+        Address address = new Address();
+        address.setNoRumah("G70");
+        address.setNamaJalan("Jalan A.Yani");
+        address.setKelurahan("Kelurah S");
+        address.setKota("Pekanbaru");
+        address.setProvinsi("Riau");
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setName("Taufiq");
-        customerEntity.setEmail("taufiq@gmail.com");
-        customerEntity.setPassword("rahasia");
+        customerEntity.setName("syakir");
+        customerEntity.setEmail("syakir@gmail.com");
+        customerEntity.setPassword("secret");
         customerEntity.setAddress(address);
 
         boolean insert = customerService.insert(customerEntity);
@@ -35,13 +39,17 @@ public class CustomerServiceTest {
     @Test
     void testInsertFail() {
 
-        Address address = new Address("", "Jalan Manggis", "Kelurahan 1",
-                "Solo", "Jawa Tengah");
+        Address address = new Address();
+        address.setNoRumah("G70");
+        address.setNamaJalan("Jalan A.Yani");
+        address.setKelurahan("Kelurah S");
+        address.setKota("   ");
+        address.setProvinsi("Riau");
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setName("Taufiq");
-        customerEntity.setEmail("taufiq@gmail.com");
-        customerEntity.setPassword("rahasia");
+        customerEntity.setName("");
+        customerEntity.setEmail("syakir@gmail.com");
+        customerEntity.setPassword("secret");
         customerEntity.setAddress(address);
 
         boolean insert = customerService.insert(customerEntity);
