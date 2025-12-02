@@ -75,4 +75,36 @@ public class CustomerServiceTest {
         boolean remove = customerService.remove("     ");
         Assertions.assertFalse(remove);
     }
+
+    @Test
+    void testUpdateSuccess() {
+
+        Address address = new Address();
+        address.setKelurahan("Kelurahan J");
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setName("adam");
+        customerEntity.setEmail("adam@gmail.com");
+        customerEntity.setAddress(address);
+
+        boolean update = customerService.update("7092", customerEntity);
+
+        Assertions.assertTrue(update);
+    }
+
+    @Test
+    void testUpdateFail() {
+
+        Address address = new Address();
+        address.setKelurahan("Kelurahan J");
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setName("adam");
+        customerEntity.setEmail(" ");
+        customerEntity.setAddress(address);
+
+        boolean update = customerService.update("7092", customerEntity);
+
+        Assertions.assertFalse(update);
+    }
 }
