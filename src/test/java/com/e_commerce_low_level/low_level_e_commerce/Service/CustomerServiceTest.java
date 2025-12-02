@@ -80,14 +80,13 @@ public class CustomerServiceTest {
     void testUpdateSuccess() {
 
         Address address = new Address();
-        address.setKelurahan("Kelurahan J");
+        address.setNoRumah("A99");
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setName("adam");
-        customerEntity.setEmail("adam@gmail.com");
+        customerEntity.setPassword("rahasia bgt");
         customerEntity.setAddress(address);
 
-        boolean update = customerService.update("7092", customerEntity);
+        boolean update = customerService.update("1cb9", customerEntity);
 
         Assertions.assertTrue(update);
     }
@@ -106,5 +105,20 @@ public class CustomerServiceTest {
         boolean update = customerService.update("7092", customerEntity);
 
         Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testFindSuccess() {
+        CustomerEntity customerEntity = customerService.find("1d42");
+
+        Assertions.assertNotNull(customerEntity);
+        Assertions.assertEquals(customerEntity.getAddress().getKota(), "Pekanbaru");
+    }
+
+    @Test
+    void testFindFail() {
+        CustomerEntity customerEntity = customerService.find("   ");
+
+        Assertions.assertNull(customerEntity);
     }
 }

@@ -63,11 +63,7 @@ public class CustomerServcieImpl implements CustomerService {
 
     @Override
     public boolean update(String id, CustomerEntity customerEntity) {
-
-        CustomerEntity customer = new CustomerEntity();
-        customer.setIdCustomer(id);
-
-        CustomerEntity result = customerRepo.find(customer);
+        CustomerEntity result = find(id);
 
         if (result != null) {
 
@@ -117,8 +113,24 @@ public class CustomerServcieImpl implements CustomerService {
 
     @Override
     public CustomerEntity find(String idCustomer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setIdCustomer(idCustomer);
+
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        Set<ConstraintViolation<CustomerEntity>> validateProperty = validator
+                .validateProperty(customerEntity, "idCustomer");
+
+        if (validateProperty.isEmpty()) {
+            CustomerEntity find = customerRepo.find(customerEntity);
+            return find;
+
+        } else {
+            return null;
+        }
+
     }
 
 }
