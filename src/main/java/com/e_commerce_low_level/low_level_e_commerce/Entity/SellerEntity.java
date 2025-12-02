@@ -10,6 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,16 +30,22 @@ public class SellerEntity {
     private String id;
 
     @Column(name = "shop_name")
+    @NotBlank(message = "shop name must not be blank")
     private String shopName;
 
     @Column(name = "owner_name")
+    @NotBlank(message = "shop name must not be blank")
     private String ownerName;
 
+    @NotBlank(message = "email must not be blank")
+    @Email(message = "email invalid")
     private String email;
 
+    @NotBlank(message = "password must not be blank")
     private String password;
 
     @Embedded
+    @Valid
     private Address address;
 
     @ManyToMany
