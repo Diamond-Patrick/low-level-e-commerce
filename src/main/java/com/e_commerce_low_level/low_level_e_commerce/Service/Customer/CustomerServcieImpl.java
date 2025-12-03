@@ -5,11 +5,10 @@ import java.util.Set;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
+import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 
 import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -20,8 +19,7 @@ public class CustomerServcieImpl implements CustomerService {
     @Override
     public boolean insert(CustomerEntity customerEntity) {
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         CustomerEntity customer = new CustomerEntity();
         customer.setName(customerEntity.getName());
@@ -43,8 +41,7 @@ public class CustomerServcieImpl implements CustomerService {
     @Override
     public boolean remove(String idCustmer) {
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setIdCustomer(idCustmer);
@@ -94,8 +91,7 @@ public class CustomerServcieImpl implements CustomerService {
             if (customerParam.getProvinsi() != null)
                 customerAddress.setProvinsi(customerParam.getProvinsi());
 
-            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-            Validator validator = validatorFactory.getValidator();
+            Validator validator = UtilityValidator.getValidator();
 
             Set<ConstraintViolation<CustomerEntity>> validate = validator.validate(result);
 
@@ -117,8 +113,7 @@ public class CustomerServcieImpl implements CustomerService {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setIdCustomer(idCustomer);
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         Set<ConstraintViolation<CustomerEntity>> validateProperty = validator
                 .validateProperty(customerEntity, "idCustomer");

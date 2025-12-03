@@ -5,11 +5,10 @@ import java.util.Set;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;
+import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 
 import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -20,8 +19,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public boolean insert(SellerEntity sellerEntity) {
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         SellerEntity seller = new SellerEntity();
         seller.setOwnerName(sellerEntity.getOwnerName());
@@ -38,8 +36,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public boolean remove(String idSeller) {
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         SellerEntity sellerEntity = new SellerEntity();
         sellerEntity.setId(idSeller);
@@ -87,8 +84,7 @@ public class SellerServiceImpl implements SellerService {
             if (sellerParam.getProvinsi() != null)
                 sellerAddress.setProvinsi(sellerParam.getProvinsi());
 
-            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-            Validator validator = validatorFactory.getValidator();
+            Validator validator = UtilityValidator.getValidator();
 
             Set<ConstraintViolation<SellerEntity>> validate = validator.validate(sellerId);
 
@@ -103,8 +99,7 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public SellerEntity find(String idSeller) {
 
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        Validator validator = validatorFactory.getValidator();
+        Validator validator = UtilityValidator.getValidator();
 
         SellerEntity sellerEntity = new SellerEntity();
         sellerEntity.setId(idSeller);
