@@ -58,6 +58,20 @@ public class SellerServiceTest {
         boolean insert = sellerService.insert(sellerEntity);
 
         Assertions.assertFalse(insert);
+    }
 
+    @Test
+    void testRemoveSuccess() {
+        Assertions.assertTrue(sellerService.remove("40b62"));
+    }
+
+    @Test
+    void testRemoveBlankId() {
+        Assertions.assertFalse(sellerService.remove("  "));
+    }
+
+    @Test
+    void testRemoveFail() {
+        Assertions.assertFalse(sellerService.remove("40b62"));
     }
 }

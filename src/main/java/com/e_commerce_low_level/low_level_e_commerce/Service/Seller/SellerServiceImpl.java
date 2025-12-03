@@ -31,19 +31,22 @@ public class SellerServiceImpl implements SellerService {
 
         Set<ConstraintViolation<SellerEntity>> validate = validator.validate(seller);
 
-        // if (validate.isEmpty()) {
-        // return sellerRepo.insert(seller);
-        // } else {
-        // return false;
-        // }
-
         return validate.isEmpty() ? sellerRepo.insert(seller) : false;
     }
 
     @Override
-    public boolean remove(String idCustomer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    public boolean remove(String idSeller) {
+
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId(idSeller);
+
+        Set<ConstraintViolation<SellerEntity>> validateProperty = validator
+                .validateProperty(sellerEntity, "id");
+
+        return validateProperty.isEmpty() ? sellerRepo.remove(sellerEntity) : false;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public SellerEntity find(String idCustomer) {
+    public SellerEntity find(String idSeller) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'find'");
     }

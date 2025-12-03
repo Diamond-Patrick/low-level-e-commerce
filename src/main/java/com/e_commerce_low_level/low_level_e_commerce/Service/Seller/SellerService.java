@@ -6,10 +6,10 @@ public interface SellerService {
 
     boolean insert(SellerEntity sellerEntity);
 
-    boolean remove(String idCustomer);
+    boolean remove(String idSeller);
 
     boolean update(String id, SellerEntity sellerEntity);
 
-    SellerEntity find(String idCustomer);
+    SellerEntity find(String idSeller);
 
 }
