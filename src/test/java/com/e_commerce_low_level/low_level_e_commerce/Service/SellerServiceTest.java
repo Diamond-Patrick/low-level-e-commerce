@@ -96,4 +96,21 @@ public class SellerServiceTest {
 
         Assertions.assertNull(sellerEntity);
     }
+
+    @Test
+    void testUpdateSuccess() {
+
+        Address address = new Address();
+        address.setProvinsi("Daerah Istimewa Yogyakarta");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setOwnerName("Man");
+        sellerEntity.setShopName("Putra Mart");
+        sellerEntity.setEmail("man@gmail.com");
+        sellerEntity.setPassword("man's password");
+        sellerEntity.setAddress(address);
+
+        boolean update = sellerService.update("8ca3b", sellerEntity);
+        Assertions.assertTrue(update);
+    }
 }

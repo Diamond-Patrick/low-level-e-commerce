@@ -97,6 +97,9 @@ public class SellerRepoImpl implements SellerRepo {
                 if (sellerEntity.getPassword() != null)
                     idSeller.setPassword(sellerEntity.getPassword());
 
+                if (sellerEntity.getShopName() != null)
+                    idSeller.setShopName(sellerEntity.getShopName());
+
                 // update address data
                 Address idSellerAdd = idSeller.getAddress();
                 Address sellerAddEntity = sellerEntity.getAddress();

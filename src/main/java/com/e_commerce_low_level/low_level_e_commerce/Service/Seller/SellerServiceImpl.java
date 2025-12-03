@@ -2,6 +2,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Service.Seller;
 
 import java.util.Set;
 
+import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;
 
@@ -51,8 +52,52 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public boolean update(String id, SellerEntity sellerEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        SellerEntity sellerId = find(id);
+
+        if (sellerId != null) {
+
+            Address sellerAddress = sellerId.getAddress();
+            Address sellerParam = sellerEntity.getAddress();
+
+            if (sellerEntity.getOwnerName() != null)
+                sellerId.setOwnerName(sellerEntity.getOwnerName());
+
+            if (sellerEntity.getEmail() != null)
+                sellerId.setEmail(sellerEntity.getEmail());
+
+            if (sellerEntity.getPassword() != null)
+                sellerId.setPassword(sellerEntity.getPassword());
+
+            if (sellerEntity.getShopName() != null)
+                sellerId.setShopName(sellerEntity.getShopName());
+
+            if (sellerParam.getNoRumah() != null)
+                sellerAddress.setNoRumah(sellerParam.getNoRumah());
+
+            if (sellerParam.getNamaJalan() != null)
+                sellerAddress.setNamaJalan(sellerParam.getNamaJalan());
+
+            if (sellerParam.getKelurahan() != null)
+                sellerAddress.setKelurahan(sellerParam.getKelurahan());
+
+            if (sellerParam.getKota() != null)
+                sellerAddress.setKota(sellerParam.getKota());
+
+            if (sellerParam.getProvinsi() != null)
+                sellerAddress.setProvinsi(sellerParam.getProvinsi());
+
+            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+            Validator validator = validatorFactory.getValidator();
+
+            Set<ConstraintViolation<SellerEntity>> validate = validator.validate(sellerId);
+
+            return validate.isEmpty() ? sellerRepo.update(id, sellerId) : false;
+
+        } else {
+            return false;
+        }
+
     }
 
     @Override
