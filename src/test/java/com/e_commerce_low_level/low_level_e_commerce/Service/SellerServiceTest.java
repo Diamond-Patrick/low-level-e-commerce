@@ -113,4 +113,37 @@ public class SellerServiceTest {
         boolean update = sellerService.update("8ca3b", sellerEntity);
         Assertions.assertTrue(update);
     }
+
+    @Test
+    void testUpdateFail() {
+        Address address = new Address();
+        address.setProvinsi("  ");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setOwnerName("Man");
+        sellerEntity.setShopName("Putra Mart");
+        sellerEntity.setEmail("man.com");
+        sellerEntity.setPassword("man's password");
+        sellerEntity.setAddress(address);
+
+        boolean update = sellerService.update("8ca3b", sellerEntity);
+        Assertions.assertFalse(update);
+    }
+
+    @Test
+    void testUpdateIdNotFound() {
+        Address address = new Address();
+        address.setProvinsi("  ");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setOwnerName("Man");
+        sellerEntity.setShopName("Putra Mart");
+        sellerEntity.setEmail("man.com");
+        sellerEntity.setPassword("man's password");
+        sellerEntity.setAddress(address);
+
+        boolean update = sellerService.update("3333", sellerEntity);
+        Assertions.assertFalse(update);
+    }
+
 }
