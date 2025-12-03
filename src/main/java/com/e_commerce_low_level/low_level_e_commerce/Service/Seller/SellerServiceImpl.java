@@ -57,8 +57,17 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public SellerEntity find(String idSeller) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId(idSeller);
+
+        Set<ConstraintViolation<SellerEntity>> validateProperty = validator
+                .validateProperty(sellerEntity, "id");
+
+        return validateProperty.isEmpty() ? sellerRepo.find(sellerEntity) : null;
     }
 
 }

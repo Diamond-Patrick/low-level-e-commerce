@@ -74,4 +74,26 @@ public class SellerServiceTest {
     void testRemoveFail() {
         Assertions.assertFalse(sellerService.remove("40b62"));
     }
+
+    @Test
+    void testFindSuccess() {
+        SellerEntity sellerEntity = sellerService.find("38a84");
+
+        Assertions.assertNotNull(sellerEntity);
+        Assertions.assertEquals("rasya@gmail.com", sellerEntity.getEmail());
+    }
+
+    @Test
+    void testFindBlankId() {
+        SellerEntity sellerEntity = sellerService.find("  ");
+
+        Assertions.assertNull(sellerEntity);
+    }
+
+    @Test
+    void testFindFail() {
+        SellerEntity sellerEntity = sellerService.find("7777");
+
+        Assertions.assertNull(sellerEntity);
+    }
 }
