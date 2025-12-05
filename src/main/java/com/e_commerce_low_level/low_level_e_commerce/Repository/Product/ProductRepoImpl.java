@@ -89,7 +89,7 @@ public class ProductRepoImpl implements ProductRepo {
                     kodeProduct.setHarga(productEntity.getHarga());
 
                 if (productEntity.getStock() != null)
-                    kodeProduct.setStock(productEntity.getStock() + kodeProduct.getStock()); // 4 + 34 = 38
+                    kodeProduct.setStock(productEntity.getStock() + kodeProduct.getStock()); // stock lama + stock baru
 
                 if (productEntity.getDescription() != null)
                     kodeProduct.setDescription(productEntity.getDescription());

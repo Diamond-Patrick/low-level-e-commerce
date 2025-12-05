@@ -50,8 +50,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductEntity> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+
+        return productRepo.findAll();
+
     }
 
 }

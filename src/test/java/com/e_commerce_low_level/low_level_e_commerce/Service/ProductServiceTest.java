@@ -3,6 +3,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -71,5 +72,19 @@ public class ProductServiceTest {
         boolean remove = productService.remove("AS234");
 
         Assertions.assertFalse(remove);
+    }
+
+    @Test
+    void testFindAll() {
+        List<ProductEntity> all = productService.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (ProductEntity productEntity : all) {
+            System.out.println(productEntity.getName());
+            System.out.println(productEntity.getHarga());
+            System.out.println(productEntity.getDescription());
+            System.out.println(productEntity.getGambar());
+        }
     }
 }
