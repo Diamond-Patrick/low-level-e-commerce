@@ -29,8 +29,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean remove(String idProduct) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+
+        Validator validator = UtilityValidator.getValidator();
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct(idProduct);
+
+        Set<ConstraintViolation<ProductEntity>> validateProperty = validator
+                .validateProperty(productEntity, "kodeProduct");
+
+        return validateProperty.isEmpty() ? productRepo.remove(productEntity) : false;
+
     }
 
     @Override

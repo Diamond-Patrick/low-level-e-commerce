@@ -53,4 +53,23 @@ public class ProductServiceTest {
         Assertions.assertFalse(insert);
 
     }
+
+    @Test
+    void testRemoveSuccess() {
+        boolean remove = productService.remove("AS234");
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveBlankKode() {
+        Assertions.assertFalse(productService.remove("   "));
+    }
+
+    @Test
+    void testRemoveFail() {
+        boolean remove = productService.remove("AS234");
+
+        Assertions.assertFalse(remove);
+    }
 }
