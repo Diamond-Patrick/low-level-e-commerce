@@ -145,5 +145,4 @@ public class SellerServiceTest {
         boolean update = sellerService.update("3333", sellerEntity);
         Assertions.assertFalse(update);
     }
-
 }

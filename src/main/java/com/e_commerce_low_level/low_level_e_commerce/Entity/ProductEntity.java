@@ -9,6 +9,10 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,17 +28,24 @@ public class ProductEntity {
 
     @Id
     @Column(name = "kode_product")
+    @NotBlank(message = "kode product must not be blank")
     private String kodeProduct;
 
+    @NotBlank(message = "name must not be blank")
     private String name;
 
+    @Positive
     private Double harga;
 
+    @Positive
     private Integer stock;
 
+    @NotNull
+    @Size(max = 5_000_000)
     @Lob
     private byte[] gambar;
 
+    @NotBlank(message = "description must not be blank")
     private String description;
 
     @OneToMany
