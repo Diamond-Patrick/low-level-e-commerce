@@ -23,11 +23,11 @@ public class ProductRepoTest {
         byte[] allBytes = Files.readAllBytes(path);
 
         ProductEntity product = new ProductEntity();
-        product.setKodeProduct("tr300");
+        product.setKodeProduct("tr311");
         product.setName("Mouse");
-        product.setHarga(12.80);
-        product.setStock(50);
-        product.setDescription("ini mouse gaming");
+        product.setHarga(30.00);
+        product.setStock(10);
+        product.setDescription("ini mouse ergonomis");
         product.setGambar(allBytes);
 
         boolean insert = productRepo.insert(product);
@@ -96,5 +96,21 @@ public class ProductRepoTest {
         for (ProductEntity productEntity : all) {
             System.out.println(productEntity.getName());
         }
+    }
+
+    @Test
+    void testFindByNameSuccess() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setName("Mouse");
+
+        List<ProductEntity> byName = productRepo.findByName(productEntity);
+
+        Assertions.assertNotNull(byName);
+
+        for (ProductEntity productEntity2 : byName) {
+            System.out.println(productEntity2.getHarga());
+            System.out.println(productEntity2.getDescription());
+        }
+
     }
 }

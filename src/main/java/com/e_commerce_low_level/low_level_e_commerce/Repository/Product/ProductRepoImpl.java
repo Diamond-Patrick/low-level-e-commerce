@@ -10,6 +10,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
@@ -141,6 +142,46 @@ public class ProductRepoImpl implements ProductRepo {
             transaction.rollback();
             return null;
 
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
+
+    @Override
+    public List<ProductEntity> findByName(ProductEntity productEntity) {
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM orders;
+            CriteriaQuery<ProductEntity> query = criteriaBuilder
+                    .createQuery(ProductEntity.class);
+            Root<ProductEntity> pE = query.from(ProductEntity.class);
+            query.select(pE);
+
+            // WHERE name = ?;
+            Predicate equal = criteriaBuilder
+                    .equal(pE.get("name"), productEntity.getName());
+
+            query.where(equal);
+
+            TypedQuery<ProductEntity> typedQuery = entityManager.createQuery(query);
+            List<ProductEntity> resultList = typedQuery.getResultList();
+
+            transaction.commit();
+            return resultList;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transaction.rollback();
+            return null;
         } finally {
             entityManager.close();
             log.info("entityManager already closed !");

@@ -14,4 +14,6 @@ public interface ProductRepo {
 
     List<ProductEntity> findAll();
 
+    List<ProductEntity> findByName(ProductEntity productEntity);
+
 }
