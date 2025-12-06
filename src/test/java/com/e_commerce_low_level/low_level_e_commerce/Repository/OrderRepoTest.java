@@ -73,4 +73,26 @@ public class OrderRepoTest {
 
         System.out.println(countingOmset);
     }
+
+    @Test
+    void testRemoveSuccess() {
+
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(1);
+
+        boolean remove = orderRepo.remove(orderEntity);
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveFail() {
+
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(1);
+
+        boolean remove = orderRepo.remove(orderEntity);
+
+        Assertions.assertFalse(remove);
+    }
 }

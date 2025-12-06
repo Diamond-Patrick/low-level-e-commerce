@@ -184,4 +184,31 @@ public class OrderRepoImpl implements OrderRepo {
         }
     }
 
+    @Override
+    public boolean remove(OrderEntity orderEntity) {
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            OrderEntity order = entityManager
+                    .find(OrderEntity.class, orderEntity.getId());
+
+            entityManager.remove(order);
+
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entiManager already closed!");
+        }
+    }
+
 }
