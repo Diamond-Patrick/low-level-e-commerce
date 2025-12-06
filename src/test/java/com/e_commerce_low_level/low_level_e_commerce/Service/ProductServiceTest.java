@@ -107,4 +107,33 @@ public class ProductServiceTest {
 
         Assertions.assertFalse(productService.update("Af123", productEntity));
     }
+
+    @Test
+    void testFIndByNameSuccess() {
+        List<ProductEntity> byName = productService.findByName("Mouse");
+
+        Assertions.assertNotNull(byName);
+
+        for (ProductEntity productEntity : byName) {
+            System.out.println(productEntity.getName());
+            System.out.println(productEntity.getHarga());
+            System.out.println(productEntity.getStock());
+        }
+    }
+
+    @Test
+    void testFIndByNameNotFound() {
+        List<ProductEntity> byName = productService.findByName("MousePad");
+
+        Assertions.assertTrue(byName.isEmpty());
+
+    }
+
+    @Test
+    void testFIndByNameNameBlank() {
+        List<ProductEntity> byName = productService.findByName("  ");
+        Assertions.assertNull(byName);
+
+    }
+
 }

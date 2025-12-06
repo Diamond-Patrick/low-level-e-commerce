@@ -76,4 +76,24 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    @Override
+    public List<ProductEntity> findByName(String name) {
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setName(name);
+
+        Validator validator = UtilityValidator.getValidator();
+        Set<ConstraintViolation<ProductEntity>> validateProperty = validator
+                .validateProperty(productEntity, "name", Essential.class);
+
+        // if (validateProperty.isEmpty()) {
+        // List<ProductEntity> byName = findByName(productEntity.getName());
+        // return byName;
+        // } else {
+        // return null;
+        // }
+
+        return validateProperty.isEmpty() ? productRepo.findByName(productEntity) : null;
+    }
+
 }
