@@ -87,4 +87,24 @@ public class ProductServiceTest {
             System.out.println(productEntity.getGambar());
         }
     }
+
+    @Test
+    void testUpadateSuccess() {
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setDescription("ini mouse gaming murah");
+        productEntity.setHarga(24.00);
+
+        Assertions.assertTrue(productService.update("Af123", productEntity));
+    }
+
+    @Test
+    void testUpadateFail() {
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setDescription("    ");
+        productEntity.setHarga(14.00);
+
+        Assertions.assertFalse(productService.update("Af123", productEntity));
+    }
 }

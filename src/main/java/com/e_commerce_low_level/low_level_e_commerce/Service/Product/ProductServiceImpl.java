@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Essential;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 
@@ -44,13 +45,33 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean update(String id, ProductEntity productEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+
+        ProductEntity product = new ProductEntity();
+
+        if (productEntity.getName() != null)
+            product.setName(productEntity.getName());
+
+        if (productEntity.getHarga() != null)
+            product.setHarga(productEntity.getHarga());
+
+        if (productEntity.getGambar() != null)
+            product.setGambar(productEntity.getGambar());
+
+        if (productEntity.getStock() != null)
+            product.setStock(productEntity.getStock());
+
+        if (productEntity.getDescription() != null)
+            product.setDescription(productEntity.getDescription());
+
+        Validator validator = UtilityValidator.getValidator();
+        Set<ConstraintViolation<ProductEntity>> validate = validator
+                .validate(product, Essential.class);
+
+        return validate.isEmpty() ? productRepo.update(id, product) : false;
     }
 
     @Override
     public List<ProductEntity> findAll() {
-
         return productRepo.findAll();
 
     }

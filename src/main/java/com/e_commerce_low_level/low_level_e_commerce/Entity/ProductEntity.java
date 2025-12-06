@@ -2,6 +2,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Entity;
 
 import java.util.List;
 
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Essential;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,16 +30,16 @@ public class ProductEntity {
 
     @Id
     @Column(name = "kode_product")
-    @NotBlank(message = "kode product must not be blank")
+    @NotBlank(message = "kode product must not be blank", groups = Essential.class)
     private String kodeProduct;
 
-    @NotBlank(message = "name must not be blank")
+    @NotBlank(message = "name must not be blank", groups = Essential.class)
     private String name;
 
-    @Positive
+    @Positive(groups = Essential.class)
     private Double harga;
 
-    @Positive
+    @Positive(groups = Essential.class)
     private Integer stock;
 
     @NotNull
@@ -45,7 +47,7 @@ public class ProductEntity {
     @Lob
     private byte[] gambar;
 
-    @NotBlank(message = "description must not be blank")
+    @NotBlank(message = "description must not be blank", groups = Essential.class)
     private String description;
 
     @OneToMany
