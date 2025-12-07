@@ -20,10 +20,10 @@ public class OrderRepoTest {
     void testInsert() {
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setIdCustomer("af70");
+        customerEntity.setIdCustomer("1cb9");
 
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setKodeProduct("Af123");
+        productEntity.setKodeProduct("tr300");
 
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setOrderQuantities(35);
@@ -62,6 +62,19 @@ public class OrderRepoTest {
 
         for (OrderEntity orderEntity : all) {
             System.out.println(orderEntity.getIdCustomer().getIdCustomer());
+            System.out.println(orderEntity.getKodeProduct().getName());
+        }
+    }
+
+    @Test
+    void testFIndByPaymentMethod() {
+        List<OrderEntity> byPaymentMethod = orderRepo
+                .findByPaymentMethod(PaymentMethod.BANK);
+
+        Assertions.assertNotNull(byPaymentMethod);
+
+        for (OrderEntity orderEntity : byPaymentMethod) {
+            System.out.println(orderEntity.getIdCustomer().getName());
             System.out.println(orderEntity.getKodeProduct().getName());
         }
     }

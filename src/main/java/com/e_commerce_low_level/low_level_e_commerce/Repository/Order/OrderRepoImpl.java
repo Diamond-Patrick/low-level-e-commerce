@@ -14,6 +14,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
@@ -119,8 +120,42 @@ public class OrderRepoImpl implements OrderRepo {
 
     @Override
     public List<OrderEntity> findByPaymentMethod(PaymentMethod paymentMethod) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByPaymentMethod'");
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM orders;
+            CriteriaQuery<OrderEntity> query = criteriaBuilder
+                    .createQuery(OrderEntity.class);
+            Root<OrderEntity> oE = query.from(OrderEntity.class);
+            query.select(oE);
+
+            // WHERE payment_method = ?;
+            Predicate equal = criteriaBuilder.equal(oE.get("paymentMethod"), paymentMethod);
+            query.where(equal);
+
+            // konversi ke List
+            TypedQuery<OrderEntity> typedQuery = entityManager.createQuery(query);
+            List<OrderEntity> resultList = typedQuery.getResultList();
+
+            transaction.commit();
+            return resultList;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed!");
+        }
     }
 
 }
