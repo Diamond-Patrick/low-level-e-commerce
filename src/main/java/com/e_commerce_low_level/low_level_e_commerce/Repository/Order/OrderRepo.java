@@ -17,6 +17,4 @@ public interface OrderRepo {
 
     Double countingOmset();
 
-    boolean remove(OrderEntity orderEntity);
-
 }
