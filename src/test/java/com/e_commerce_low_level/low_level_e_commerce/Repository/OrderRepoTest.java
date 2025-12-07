@@ -30,6 +30,25 @@ public class OrderRepoTest {
         boolean insert = orderRepo.insert(orderEntity, productEntity, customerEntity);
 
         Assertions.assertTrue(insert);
+    }
 
+    @Test
+    void testRemoveSuccess() {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(2);
+
+        boolean remove = orderRepo.remove(orderEntity);
+
+        Assertions.assertTrue(remove);
+    }
+
+    @Test
+    void testRemoveFail() {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(2);
+
+        boolean remove = orderRepo.remove(orderEntity);
+
+        Assertions.assertFalse(remove);
     }
 }

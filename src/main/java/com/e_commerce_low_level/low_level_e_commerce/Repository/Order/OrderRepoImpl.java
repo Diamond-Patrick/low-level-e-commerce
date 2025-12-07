@@ -51,8 +51,31 @@ public class OrderRepoImpl implements OrderRepo {
 
     @Override
     public boolean remove(OrderEntity order) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            OrderEntity orderEntity = entityManager.find(OrderEntity.class, order.getId());
+
+            entityManager.remove(orderEntity);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed!");
+        }
+
     }
 
     @Override
