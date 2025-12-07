@@ -22,11 +22,11 @@ public class OrderRepoTest {
         customerEntity.setIdCustomer("7092");
 
         ProductEntity productEntity = new ProductEntity();
-        productEntity.setKodeProduct("tr300");
+        productEntity.setKodeProduct("tr311");
 
         OrderEntity order = new OrderEntity();
         order.setPaymentMethod(PaymentMethod.CASH);
-        order.setOrderQuantities(3);
+        order.setOrderQuantities(7);
 
         boolean purchase = orderRepo.purchase(customerEntity, productEntity, order);
 
@@ -69,7 +69,7 @@ public class OrderRepoTest {
 
     @Test
     void testCountingOmset() {
-        Double countingOmset = orderRepo.countingOmset(null);
+        Double countingOmset = orderRepo.countingOmset();
 
         System.out.println(countingOmset);
     }

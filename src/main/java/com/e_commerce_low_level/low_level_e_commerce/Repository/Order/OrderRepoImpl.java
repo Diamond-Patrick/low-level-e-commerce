@@ -140,7 +140,7 @@ public class OrderRepoImpl implements OrderRepo {
     }
 
     @Override
-    public Double countingOmset(ProductEntity productEntity) {
+    public Double countingOmset() {
         EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
                 .createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
