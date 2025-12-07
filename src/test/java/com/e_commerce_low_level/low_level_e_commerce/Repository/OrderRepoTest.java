@@ -1,5 +1,7 @@
 package com.e_commerce_low_level.low_level_e_commerce.Repository;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -50,5 +52,17 @@ public class OrderRepoTest {
         boolean remove = orderRepo.remove(orderEntity);
 
         Assertions.assertFalse(remove);
+    }
+
+    @Test
+    void testFIndAll() {
+        List<OrderEntity> all = orderRepo.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (OrderEntity orderEntity : all) {
+            System.out.println(orderEntity.getIdCustomer().getIdCustomer());
+            System.out.println(orderEntity.getKodeProduct().getName());
+        }
     }
 }

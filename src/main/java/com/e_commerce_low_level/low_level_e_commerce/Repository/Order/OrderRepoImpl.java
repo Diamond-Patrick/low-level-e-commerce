@@ -11,6 +11,10 @@ import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityMana
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -80,8 +84,37 @@ public class OrderRepoImpl implements OrderRepo {
 
     @Override
     public List<OrderEntity> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM product;
+            CriteriaQuery<OrderEntity> query = criteriaBuilder
+                    .createQuery(OrderEntity.class);
+            Root<OrderEntity> oE = query.from(OrderEntity.class);
+            query.select(oE);
+
+            TypedQuery<OrderEntity> typedQuery = entityManager.createQuery(query);
+            List<OrderEntity> resultList = typedQuery.getResultList();
+
+            transaction.commit();
+            return resultList;
+
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed!");
+        }
     }
 
     @Override
