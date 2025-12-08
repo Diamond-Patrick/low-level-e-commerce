@@ -28,6 +28,7 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Positive
     private Integer id;
 
     @ManyToOne

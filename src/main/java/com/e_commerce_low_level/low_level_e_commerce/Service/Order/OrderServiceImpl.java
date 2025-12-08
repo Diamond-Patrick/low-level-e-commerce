@@ -51,9 +51,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean remove(String idOrder) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    public boolean remove(int idOrder) {
+
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(idOrder);
+
+        // validation
+        Validator validator = UtilityValidator.getValidator();
+        Set<ConstraintViolation<OrderEntity>> validateProperty = validator
+                .validateProperty(orderEntity, "id");
+
+        return validateProperty.isEmpty() ? orderRepo.remove(orderEntity) : false;
     }
 
     @Override

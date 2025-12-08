@@ -42,4 +42,19 @@ public class OrderServiceTest {
 
         Assertions.assertFalse(insert);
     }
+
+    @Test
+    void testRemoveSuccess() {
+        Assertions.assertTrue(orderService.remove(10));
+    }
+
+    @Test
+    void testRemoveFail() {
+        Assertions.assertFalse(orderService.remove(-10));
+    }
+
+    @Test
+    void testRemoveIdNotFound() {
+        Assertions.assertFalse(orderService.remove(100));
+    }
 }

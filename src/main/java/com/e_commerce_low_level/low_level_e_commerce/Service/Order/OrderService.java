@@ -9,7 +9,7 @@ public interface OrderService {
 
     boolean insert(OrderEntity order, String kodeProduct, String idCustomer);
 
-    boolean remove(String idOrder);
+    boolean remove(int idOrder);
 
     List<OrderEntity> findAll();
 
