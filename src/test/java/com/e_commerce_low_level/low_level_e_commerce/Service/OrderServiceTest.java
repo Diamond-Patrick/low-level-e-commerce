@@ -5,10 +5,8 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.OrderEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.PaymentMethod;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Order.OrderService;
@@ -47,7 +45,7 @@ public class OrderServiceTest {
 
     @Test
     void testRemoveSuccess() {
-        Assertions.assertTrue(orderService.remove(10));
+        Assertions.assertTrue(orderService.remove(11));
     }
 
     @Test
@@ -70,5 +68,26 @@ public class OrderServiceTest {
             System.out.println(orderEntity.getOrderQuantities());
             System.out.println(orderEntity.getKodeProduct().getName());
         }
+    }
+
+    @Test
+    void testFindByPaymentMethod() {
+        List<OrderEntity> byPaymentMethod = orderService
+                .findByPaymentMethod(PaymentMethod.CASH);
+
+        Assertions.assertNotNull(byPaymentMethod);
+
+        for (OrderEntity orderEntity : byPaymentMethod) {
+            System.out.println(orderEntity.getPaymentMethod());
+            System.out.println(orderEntity.getIdCustomer().getName());
+        }
+    }
+
+    @Test
+    void testFindByPaymentMethodFail() {
+        List<OrderEntity> byPaymentMethod = orderService
+                .findByPaymentMethod(PaymentMethod.EWALLET);
+
+        Assertions.assertTrue(byPaymentMethod.isEmpty());
     }
 }

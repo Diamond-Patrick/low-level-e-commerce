@@ -40,7 +40,7 @@ public class OrderEntity {
     private CustomerEntity idCustomer;
 
     @Enumerated
-    @NotNull
+    // @NotNull
     private PaymentMethod paymentMethod;
 
     @Column(name = "purchace_date")

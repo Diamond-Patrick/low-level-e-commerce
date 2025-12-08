@@ -71,8 +71,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderEntity> findByPaymentMethod(PaymentMethod paymentMethod) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByPaymentMethod'");
+
+        // Validator validator = UtilityValidator.getValidator();
+
+        // Set<ConstraintViolation<PaymentMethod>> validate = validator
+        // .validate(paymentMethod);
+
+        return orderRepo.findByPaymentMethod(paymentMethod);
     }
 
 }
