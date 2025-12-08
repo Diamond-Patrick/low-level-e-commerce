@@ -1,5 +1,7 @@
 package com.e_commerce_low_level.low_level_e_commerce.Service;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +58,17 @@ public class OrderServiceTest {
     @Test
     void testRemoveIdNotFound() {
         Assertions.assertFalse(orderService.remove(100));
+    }
+
+    @Test
+    void testFindAll() {
+        List<OrderEntity> all = orderService.findAll();
+
+        Assertions.assertNotNull(all);
+
+        for (OrderEntity orderEntity : all) {
+            System.out.println(orderEntity.getOrderQuantities());
+            System.out.println(orderEntity.getKodeProduct().getName());
+        }
     }
 }

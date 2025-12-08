@@ -66,8 +66,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderEntity> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return orderRepo.findAll();
     }
 
     @Override
