@@ -71,13 +71,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderEntity> findByPaymentMethod(PaymentMethod paymentMethod) {
-
-        // Validator validator = UtilityValidator.getValidator();
-
-        // Set<ConstraintViolation<PaymentMethod>> validate = validator
-        // .validate(paymentMethod);
-
         return orderRepo.findByPaymentMethod(paymentMethod);
     }
-
 }

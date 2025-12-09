@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +39,6 @@ public class OrderEntity {
     private CustomerEntity idCustomer;
 
     @Enumerated
-    // @NotNull
     private PaymentMethod paymentMethod;
 
     @Column(name = "purchace_date")
