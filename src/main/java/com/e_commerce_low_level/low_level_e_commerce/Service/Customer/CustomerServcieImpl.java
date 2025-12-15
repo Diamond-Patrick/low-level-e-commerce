@@ -10,7 +10,9 @@ import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class CustomerServcieImpl implements CustomerService {
 
@@ -34,6 +36,12 @@ public class CustomerServcieImpl implements CustomerService {
             return insert;
 
         } else {
+
+            for (ConstraintViolation<CustomerEntity> constraintViolation : validate) {
+
+                log.error(constraintViolation.getPropertyPath() + ":" + constraintViolation.getMessage());
+            }
+
             return false;
         }
     }

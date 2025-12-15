@@ -26,7 +26,7 @@ public class CustomerEntity {
 
     @Id
     @Column(name = "id_customer")
-    @NotBlank(message = "id customer msut not be blank")
+    // @NotBlank(message = "id customer msut not be blank")
     private String idCustomer;
 
     @NotBlank(message = "name must not be blank")
