@@ -118,22 +118,16 @@ public class CustomerServcieImpl implements CustomerService {
     @Override
     public CustomerEntity find(String idCustomer) {
 
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setIdCustomer(idCustomer);
+        if (!idCustomer.trim().isBlank()) {
+            CustomerEntity customerEntity = new CustomerEntity();
+            customerEntity.setIdCustomer(idCustomer);
 
-        Validator validator = UtilityValidator.getValidator();
-
-        Set<ConstraintViolation<CustomerEntity>> validateProperty = validator
-                .validateProperty(customerEntity, "idCustomer");
-
-        if (validateProperty.isEmpty()) {
             CustomerEntity find = customerRepo.find(customerEntity);
             return find;
 
         } else {
             return null;
         }
-
     }
 
 }
