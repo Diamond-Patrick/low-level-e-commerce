@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Login;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 
@@ -101,12 +102,15 @@ public class CustomerServcieImpl implements CustomerService {
 
             Validator validator = UtilityValidator.getValidator();
 
-            Set<ConstraintViolation<CustomerEntity>> validate = validator.validate(result);
+            Set<ConstraintViolation<CustomerEntity>> validate = validator.validate(result, Login.class);
 
             if (validate.isEmpty()) {
                 boolean update = customerRepo.update(id, result);
                 return update;
             } else {
+                for (ConstraintViolation<CustomerEntity> constraintViolation : validate) {
+                    log.error(constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage());
+                }
                 return false;
             }
         } else {
@@ -122,8 +126,28 @@ public class CustomerServcieImpl implements CustomerService {
             CustomerEntity customerEntity = new CustomerEntity();
             customerEntity.setIdCustomer(idCustomer);
 
-            CustomerEntity find = customerRepo.find(customerEntity);
+            CustomerEntity find = customerRepo.findById(customerEntity);
             return find;
+
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public CustomerEntity findByEmailAndPassword(String email, String password) {
+
+        Validator validator = UtilityValidator.getValidator();
+
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setEmail(email);
+        customerEntity.setPassword(password);
+
+        Set<ConstraintViolation<CustomerEntity>> validateProperty = validator
+                .validate(customerEntity, Login.class);
+
+        if (validateProperty.isEmpty()) {
+            return customerRepo.find(customerEntity);
 
         } else {
             return null;

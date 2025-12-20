@@ -186,4 +186,29 @@ public class CustomerRepoImpl implements CustomerRepo {
         }
     }
 
+    public CustomerEntity findById(CustomerEntity id) {
+
+        EntityManager entityManager = UtilityEntityManagerFactory
+                .getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            CustomerEntity idCustomer = entityManager
+                    .find(CustomerEntity.class, id.getIdCustomer());
+
+            transaction.commit();
+            return idCustomer;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
 }

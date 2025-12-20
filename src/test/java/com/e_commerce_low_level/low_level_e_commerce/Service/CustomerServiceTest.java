@@ -20,15 +20,15 @@ public class CustomerServiceTest {
 
         Address address = new Address();
         address.setNoRumah("G70");
-        address.setNamaJalan("Jalan A.Yani");
-        address.setKelurahan("Kelurah S");
-        address.setKota("Pekanbaru");
-        address.setProvinsi("Riau");
+        address.setNamaJalan("Jalan AH Nasution");
+        address.setKelurahan("Kelurah B");
+        address.setKota("Bandung");
+        address.setProvinsi("Jawa Barat");
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setName("syakir");
-        customerEntity.setEmail("syakir@gmail.com");
-        customerEntity.setPassword("secret");
+        customerEntity.setName("Khairy");
+        customerEntity.setEmail("khairy@gmail.com");
+        customerEntity.setPassword("rahasia");
         customerEntity.setAddress(address);
 
         boolean insert = customerService.insert(customerEntity);
@@ -43,13 +43,13 @@ public class CustomerServiceTest {
         address.setNoRumah("G70");
         address.setNamaJalan("Jalan A.Yani");
         address.setKelurahan("Kelurah S");
-        address.setKota("   ");
+        address.setKota("Malang");
         address.setProvinsi("Riau");
 
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setName("");
         customerEntity.setEmail("syakir@gmail.com");
-        customerEntity.setPassword("secret");
+        customerEntity.setPassword("    ");
         customerEntity.setAddress(address);
 
         boolean insert = customerService.insert(customerEntity);
@@ -80,10 +80,10 @@ public class CustomerServiceTest {
     void testUpdateSuccess() {
 
         Address address = new Address();
-        address.setNoRumah("A99");
+        address.setNoRumah("B.56");
 
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setPassword("rahasia bgt");
+        customerEntity.setPassword("very secret");
         customerEntity.setAddress(address);
 
         boolean update = customerService.update("1cb9", customerEntity);
@@ -99,7 +99,7 @@ public class CustomerServiceTest {
 
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setName("adam");
-        customerEntity.setEmail(" ");
+        customerEntity.setEmail("  ");
         customerEntity.setAddress(address);
 
         boolean update = customerService.update("7092", customerEntity);
@@ -109,16 +109,26 @@ public class CustomerServiceTest {
 
     @Test
     void testFindSuccess() {
-        CustomerEntity customerEntity = customerService.find("1d42");
 
-        Assertions.assertNotNull(customerEntity);
-        Assertions.assertEquals(customerEntity.getAddress().getKota(), "Pekanbaru");
+        CustomerEntity byEmailAndPassword = customerService
+                .findByEmailAndPassword("hello@gmail.com", "hello_password");
+
+        Assertions.assertNotNull(byEmailAndPassword);
     }
 
     @Test
     void testFindFail() {
-        CustomerEntity customerEntity = customerService.find("   ");
+        CustomerEntity byEmailAndPassword = customerService
+                .findByEmailAndPassword("xhhsuhxusx", "hello_password");
 
-        Assertions.assertNull(customerEntity);
+        Assertions.assertNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindBlankPassword() {
+        CustomerEntity byEmailAndPassword = customerService
+                .findByEmailAndPassword("hello@gmail.com", "  ");
+
+        Assertions.assertNull(byEmailAndPassword);
     }
 }

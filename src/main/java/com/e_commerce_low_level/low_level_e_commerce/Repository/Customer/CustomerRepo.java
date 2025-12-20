@@ -11,4 +11,6 @@ public interface CustomerRepo {
     boolean update(String id, CustomerEntity customerEntity);
 
     CustomerEntity find(CustomerEntity customerEntity); // find by email & password
+
+    CustomerEntity findById(CustomerEntity customerEntity);
 }

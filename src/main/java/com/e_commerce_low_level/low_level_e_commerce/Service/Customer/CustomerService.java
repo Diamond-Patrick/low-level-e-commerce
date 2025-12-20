@@ -11,4 +11,6 @@ public interface CustomerService {
     boolean update(String id, CustomerEntity customerEntity);
 
     CustomerEntity find(String idCustomer);
+
+    CustomerEntity findByEmailAndPassword(String email, String password);
 }

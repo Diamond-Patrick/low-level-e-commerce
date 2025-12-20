@@ -2,6 +2,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Entity;
 
 import java.util.List;
 
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Login;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -26,16 +28,16 @@ public class CustomerEntity {
 
     @Id
     @Column(name = "id_customer")
-    // @NotBlank(message = "id customer msut not be blank")
     private String idCustomer;
 
     @NotBlank(message = "name must not be blank")
     private String name;
 
-    @Email(message = "invalid email")
+    @Email(message = "invalid email", groups = Login.class)
+    @NotBlank(message = "email must not be blank", groups = Login.class)
     private String email;
 
-    @NotBlank(message = "password must not be blank")
+    @NotBlank(message = "password must not be blank", groups = Login.class)
     private String password;
 
     @Embedded
