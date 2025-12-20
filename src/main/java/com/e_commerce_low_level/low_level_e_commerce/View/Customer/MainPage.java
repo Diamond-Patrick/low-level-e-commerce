@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.List;
 
+import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Product.ProductService;
@@ -22,8 +24,8 @@ public class MainPage extends HttpServlet {
     private ProductRepo productRepo = new ProductRepoImpl();
     private ProductService productService = new ProductServiceImpl(productRepo);
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private String renderingCardProduct(List<ProductEntity> products) throws IOException {
+
         Path of = Path.of("src/main/resources/html/Customer/mainPage.html");
 
         String html = Files.readString(of);
@@ -35,15 +37,15 @@ public class MainPage extends HttpServlet {
                         <div class="card-body">
                             <h5 class="card-title">%s</h5>
                             <p class="card-text">%s</p>
-                            <a class="btn btn-primary">%s</a>
+                            <a class="btn btn-primary">$%s</a>
                         </div>
                     </div>
                 </div>
-                    """;
+                """;
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        productService.findAll().forEach(t -> {
+        products.forEach(t -> {
             stringBuilder.append(String.format(card,
                     Base64.getEncoder().encodeToString(t.getGambar()),
                     t.getName(),
@@ -51,8 +53,23 @@ public class MainPage extends HttpServlet {
                     t.getHarga()));
         });
 
-        String result = html.replace("$test", stringBuilder.toString());
+        return html.replace("$test", stringBuilder.toString());
 
-        resp.getWriter().println(result);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String renderingCardProduct = renderingCardProduct(productService.findAll());
+
+        resp.getWriter().println(renderingCardProduct);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String findProduct = req.getParameter("findProduct");
+
+        resp.getWriter().println(renderingCardProduct(productService.findByName(findProduct)));
+
     }
 }
