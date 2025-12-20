@@ -88,19 +88,19 @@ public class CustomerRepoTest {
     @Test
     void testFindSuccess() {
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setIdCustomer("af70");
+        customerEntity.setEmail("syakir@gmail.com");
+        customerEntity.setPassword("secret");
 
         CustomerEntity find = customerRepo.find(customerEntity);
 
         Assertions.assertNotNull(find);
-
-        System.out.println(find.getName());
     }
 
     @Test
     void testFindFail() {
         CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setIdCustomer("0000");
+        customerEntity.setEmail("syakir@gmail.com");
+        customerEntity.setPassword("jshjkk");
 
         CustomerEntity find = customerRepo.find(customerEntity);
 

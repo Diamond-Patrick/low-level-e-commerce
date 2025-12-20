@@ -8,6 +8,11 @@ import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityMana
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -141,17 +146,37 @@ public class CustomerRepoImpl implements CustomerRepo {
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
+
             transaction.begin();
 
-            CustomerEntity idCustomer = entityManager
-                    .find(CustomerEntity.class, customerEntity.getIdCustomer());
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM customer;
+            CriteriaQuery<CustomerEntity> query = criteriaBuilder
+                    .createQuery(CustomerEntity.class);
+            Root<CustomerEntity> cE = query.from(CustomerEntity.class);
+            query.select(cE);
+
+            // WHERE email = ? And password == ?;
+            Predicate emailEqual = criteriaBuilder
+                    .equal(cE.get("email"), customerEntity.getEmail()); // email
+
+            Predicate passwordEqual = criteriaBuilder
+                    .equal(cE.get("password"), customerEntity.getPassword()); // password
+
+            Predicate and = criteriaBuilder.and(emailEqual, passwordEqual); // AND
+
+            query.where(and); // WHERE
+
+            TypedQuery<CustomerEntity> typedQuery = entityManager.createQuery(query);
+            CustomerEntity singleResult = typedQuery.getSingleResult();
 
             transaction.commit();
 
-            return idCustomer;
+            return singleResult;
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e.getMessage());
             transaction.rollback();
             return null;
 
