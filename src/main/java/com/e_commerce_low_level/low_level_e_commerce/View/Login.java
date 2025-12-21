@@ -28,7 +28,7 @@ public class Login extends HttpFilter {
             Object attribute = session.getAttribute("id");
 
             for (Cookie cookie : cookies) {
-                if (cookie.getName().isBlank() && attribute == null) {
+                if (!cookie.getName().equals("id") && attribute == null) {
                     response.sendRedirect("/login");
                 }
             }
