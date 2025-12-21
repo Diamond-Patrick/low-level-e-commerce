@@ -32,7 +32,7 @@ public class Login extends HttpFilter {
                     response.sendRedirect("/login");
                 }
             }
-
+            chain.doFilter(request, response); // continue to the next page
         }
 
     }
