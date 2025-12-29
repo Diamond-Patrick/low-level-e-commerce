@@ -35,10 +35,13 @@ public class OrderPage extends HttpServlet {
                         <p class="text-slate-500"><a class="font-semibold text-black">Price:</a> %s</p>
                         <p class="text-slate-500"><a class="font-semibold text-black">Purchase On:</a> %s</p>
                         <div>
+                        <form action="/order" method="post"">
+                            <input type="hidden" name="idOrder" value="%s">
                             <button class="w-auto h-10 block mx-auto mt-1 border rounded-full
                                     bg-sky-500 text-white font-semibold hover:bg-sky-600
-                                    focus:bg-pink-700 focus:ring-4 focus:ring-sky-200
+                                    focus:bg-sky-700 focus:ring-4 focus:ring-sky-200
                                     hover:cursor-pointer" type="submit"><a class="mx-3">Product have been received</a></button>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -56,7 +59,8 @@ public class OrderPage extends HttpServlet {
                             cardProduct,
                             t.getKodeProduct().getName(),
                             t.getKodeProduct().getHarga().toString(),
-                            t.getPurchaceDate().toString()));
+                            t.getPurchaceDate().toString(),
+                            t.getId().toString()));
 
                 }
             }
@@ -65,6 +69,24 @@ public class OrderPage extends HttpServlet {
         String replace = string.replace("$cardProduct", stringBuilder);
 
         resp.getWriter().println(replace);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String idOrder = req.getParameter("idOrder");
+
+        boolean remove = orderService.remove(Integer.parseInt(idOrder));
+
+        if (remove) {
+            resp.sendRedirect("/products");
+        } else if (!remove) {
+            String popup = """
+                    <script>alert("Fail to proccess the product");</script>
+                    """;
+
+            resp.getWriter().println(popup);
+        }
+
     }
 
 }
