@@ -54,6 +54,7 @@ public class Signup extends HttpServlet {
 
         if (insert) {
 
+            resp.sendRedirect("/login"); // if success create new account, redirect to login page
         } else {
             resp.sendRedirect(req.getRequestURI());
         }

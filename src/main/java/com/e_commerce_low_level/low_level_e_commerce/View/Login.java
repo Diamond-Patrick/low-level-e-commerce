@@ -17,7 +17,7 @@ public class Login extends HttpFilter {
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        if (request.getRequestURI().equals("/login")) {
+        if (request.getRequestURI().equals("/login") || request.getRequestURI().equals("/signup")) {
             chain.doFilter(request, response); // continue
 
         } else {
