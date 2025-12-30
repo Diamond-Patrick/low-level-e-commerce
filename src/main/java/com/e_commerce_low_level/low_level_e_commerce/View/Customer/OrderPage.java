@@ -32,7 +32,8 @@ public class OrderPage extends HttpServlet {
                 <div class="p-6 max-w-sm mx-auto my-8 bg-white rounded-xl shadow-lg shadow-slate-500 flex items-center space-x-4">
                     <div>
                         <div class="text-xl font-medium text-black">%s</div>
-                        <p class="text-slate-500"><a class="font-semibold text-black">Price:</a> %s</p>
+                        <p class="text-slate-500"><a class="font-semibold text-black">Price:</a>$ %s x %s</p>
+                        <p class="text-slate-500"><a class="font-semibold text-black">Payment Method:</a> %s</p>
                         <p class="text-slate-500"><a class="font-semibold text-black">Purchase On:</a> %s</p>
                         <div>
                         <form action="/order" method="post"">
@@ -59,6 +60,8 @@ public class OrderPage extends HttpServlet {
                             cardProduct,
                             t.getKodeProduct().getName(),
                             t.getKodeProduct().getHarga().toString(),
+                            t.getOrderQuantities().toString(),
+                            t.getPaymentMethod().toString(),
                             t.getPurchaceDate().toString(),
                             t.getId().toString()));
 
