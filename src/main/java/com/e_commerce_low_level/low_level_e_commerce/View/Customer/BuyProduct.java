@@ -6,12 +6,18 @@ import java.nio.file.Path;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.OrderEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.PaymentMethod;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepo;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerServcieImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerService;
+import com.e_commerce_low_level.low_level_e_commerce.Service.Order.OrderService;
+import com.e_commerce_low_level.low_level_e_commerce.Service.Order.OrderServiceImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Product.ProductService;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Product.ProductServiceImpl;
 
@@ -30,6 +36,9 @@ public class BuyProduct extends HttpServlet {
 
     private CustomerRepo customerRepo = new CustomerRepoImpl();
     private CustomerService customerService = new CustomerServcieImpl(customerRepo);
+
+    private OrderRepo orderRepo = new OrderRepoImpl();
+    private OrderService orderService = new OrderServiceImpl(orderRepo);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,5 +88,30 @@ public class BuyProduct extends HttpServlet {
 
         String replace = string.replace("$optionPayment", stringBuilder);
         resp.getWriter().println(replace);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String quantity = req.getParameter("quantity");
+        String category = req.getParameter("category");
+
+        String idProduct = req.getParameter("idProduct");
+
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderQuantities(Integer.valueOf(quantity));
+        orderEntity.setPaymentMethod(PaymentMethod.valueOf(category));
+
+        for (Cookie cookies : req.getCookies()) {
+            if (cookies.getName().equals("id")) {
+                boolean insert = orderService.insert(orderEntity, idProduct, cookies.getValue());
+
+                if (insert) {
+                    resp.sendRedirect("/products");
+                } else {
+                    resp.sendRedirect(req.getRequestURI());
+                }
+            }
+        }
+
     }
 }
