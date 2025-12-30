@@ -37,7 +37,7 @@ public class MainPage extends HttpServlet {
                         <div class="card-body">
                             <h5 class="card-title">%s</h5>
                             <p class="card-text">%s</p>
-                            <a class="btn btn-primary">$%s</a>
+                            <a href="/purchasedetail?idProduct=%s" class="btn btn-primary">$%s</a>
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,7 @@ public class MainPage extends HttpServlet {
                     Base64.getEncoder().encodeToString(t.getGambar()),
                     t.getName(),
                     t.getDescription(),
+                    t.getKodeProduct(),
                     t.getHarga()));
         });
 

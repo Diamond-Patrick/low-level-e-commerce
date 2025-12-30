@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <h1 class="font-bold text-center text-4xl mt-24">Purchase Detail</h1>
+
+    <form action="" method="post">
+        <div>
+               $optionPayment
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Mau Beli Berapa? :</h4>
+                    <input type="number" name="quantity" class="w-full pb-1 border-2 border-sky-200 shadow-lg pl-3
+                        border placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400 rounded">
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Bayar Pakai Apa? :</h4>
+                    <select name="category" id="category"
+                    class="form-select w-full shadow-xl rounded-l border-2 border-sky-200 bg-white px-4 py-2 text-slate-700
+                            focus:outline-none focus:ring-2 focus:ring-sky-400
+                            focus:border-sky-400
+                            transition">
+                        <option selected disabled hidden>Methode Pembayaran</option>
+                        <option value="%s">Cash</option>
+                        <option value="%s">Bank</option>
+                        <option value="%s">E-Wallet</option>
+                    </select>
+                </div>
+                <div class="mt-7">
+                    <button class="w-20 h-10 block mx-auto border rounded-full
+                     bg-sky-500 text-white font-semibold hover:bg-sky-600
+                     focus:bg-pink-700 focus:ring-4 focus:ring-sky-200 
+                     hover:cursor-pointer" type="submit">Buy</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
