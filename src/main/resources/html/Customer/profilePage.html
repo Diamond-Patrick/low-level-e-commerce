@@ -11,7 +11,7 @@
      <form action="" method="post">
         <div>
             <div class="max-w-lg h-auto mx-auto mt-10 border-2 border-cyan-300 shadow-2xl shadow-sky-500 p-5">
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <h4 class="font-default mb-1">Id Customer :</h4>
                     <h3 class="font-semibold mb-1">%s</h3>
                 </div>
@@ -30,7 +30,8 @@
                 <div class="mt-4">
                     <h4 class="font-default mb-1">Alamat :</h4>
                    <h3 class="font-semibold mb-1">%s</h3>
-                </div>
+                </div> -->
+                $custDetail
                 <div class="mt-7 flex justify-center gap-4">
                     <a href=""
                     class="w-20 h-10 flex items-center justify-center
@@ -44,11 +45,13 @@
                         Want to be seller?
                     </a>
 
-                    <a href=""
-                    class="w-20 h-10 flex items-center justify-center
-                            rounded-full bg-rose-500 text-white font-semibold">
-                        Logout
-                    </a>
+                    <form action="/profile" method="post">
+                        <button class="w-20 h-10 flex items-center justify-center
+                                    rounded-full bg-rose-500 text-white font-semibold"
+                            type="submit">
+                                Logout
+                        </button>
+                    </form>
                 </div>
             </div>
 </body>
