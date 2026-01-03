@@ -76,28 +76,28 @@ public class CustomerServcieImpl implements CustomerService {
             Address customerAddress = result.getAddress();
             Address customerParam = customerEntity.getAddress();
 
-            if (customerEntity.getName() != null)
+            if (!customerEntity.getName().trim().isBlank())
                 result.setName(customerEntity.getName());
 
-            if (customerEntity.getEmail() != null)
+            if (!customerEntity.getEmail().trim().isBlank())
                 result.setEmail(customerEntity.getEmail());
 
-            if (customerEntity.getPassword() != null)
+            if (!customerEntity.getPassword().trim().isBlank())
                 result.setPassword(customerEntity.getPassword());
 
-            if (customerParam.getNoRumah() != null)
+            if (!customerParam.getNoRumah().trim().isBlank())
                 customerAddress.setNoRumah(customerParam.getNoRumah());
 
-            if (customerParam.getNamaJalan() != null)
-                customerAddress.setNoRumah(customerParam.getNamaJalan());
+            if (!customerParam.getNamaJalan().trim().isBlank())
+                customerAddress.setNamaJalan(customerParam.getNamaJalan());
 
-            if (customerParam.getKelurahan() != null)
+            if (!customerParam.getKelurahan().trim().isBlank())
                 customerAddress.setKelurahan(customerParam.getKelurahan());
 
-            if (customerParam.getKota() != null)
+            if (!customerParam.getKota().trim().isBlank())
                 customerAddress.setKota(customerParam.getKota());
 
-            if (customerParam.getProvinsi() != null)
+            if (!customerParam.getProvinsi().trim().isBlank())
                 customerAddress.setProvinsi(customerParam.getProvinsi());
 
             Validator validator = UtilityValidator.getValidator();
