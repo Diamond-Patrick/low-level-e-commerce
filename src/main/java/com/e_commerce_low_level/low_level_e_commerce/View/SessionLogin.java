@@ -5,10 +5,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;
+import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerServcieImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Customer.CustomerService;
+import com.e_commerce_low_level.low_level_e_commerce.Service.Seller.SellerService;
+import com.e_commerce_low_level.low_level_e_commerce.Service.Seller.SellerServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,6 +28,9 @@ public class SessionLogin extends HttpServlet {
 
     private CustomerRepo customerRepo = new CustomerRepoImpl();
     private CustomerService customerService = new CustomerServcieImpl(customerRepo);
+
+    private SellerRepo sellerRepo = new SellerRepoImpl();
+    private SellerService sellerService = new SellerServiceImpl(sellerRepo);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,8 +56,23 @@ public class SessionLogin extends HttpServlet {
             resp.addCookie(cookie);
 
             resp.sendRedirect("/customerpage");
+
         } else if (result == null) {
-            resp.sendRedirect(req.getRequestURI()); // same page
+
+            SellerEntity resultSeller = sellerService.findByEmailAndPassword(email, password);
+
+            if (resultSeller != null) {
+                HttpSession session = req.getSession(true);
+                session.setAttribute("id", resultSeller.getId());
+
+                Cookie cookie = new Cookie("id", resultSeller.getId());
+                resp.addCookie(cookie);
+
+                resp.sendRedirect("/productselling");
+
+            } else {
+                resp.sendRedirect(req.getRequestURI()); // same page
+            }
         }
     }
 }

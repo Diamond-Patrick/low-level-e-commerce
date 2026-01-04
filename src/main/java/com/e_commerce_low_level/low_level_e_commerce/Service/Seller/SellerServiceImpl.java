@@ -123,13 +123,6 @@ public class SellerServiceImpl implements SellerService {
         Set<ConstraintViolation<SellerEntity>> validate = validator
                 .validate(sellerEntity, Login.class);
 
-        // if (validate.isEmpty()) {
-        // return sellerRepo.findByEmailPassword(sellerEntity);
-
-        // } else {
-        // return null;
-        // }
-
         return validate.isEmpty() ? sellerRepo.findByEmailPassword(sellerEntity) : null;
     }
 
