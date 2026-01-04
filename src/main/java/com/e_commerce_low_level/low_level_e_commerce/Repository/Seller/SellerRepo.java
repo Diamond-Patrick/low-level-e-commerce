@@ -11,4 +11,6 @@ public interface SellerRepo {
     boolean update(String id, SellerEntity sellerEntity);
 
     SellerEntity find(SellerEntity sellerEntity);
+
+    SellerEntity findByEmailPassword(SellerEntity sellerEntity);
 }

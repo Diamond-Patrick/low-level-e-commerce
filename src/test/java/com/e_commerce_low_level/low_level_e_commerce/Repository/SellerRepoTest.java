@@ -98,4 +98,26 @@ public class SellerRepoTest {
 
         Assertions.assertNull(find);
     }
+
+    @Test
+    void testFindByEmailPasswordSuccess() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setEmail("rasya@gmail.com");
+        sellerEntity.setPassword("secret");
+
+        SellerEntity byEmailPassword = sellerRepo.findByEmailPassword(sellerEntity);
+
+        Assertions.assertNotNull(byEmailPassword);
+    }
+
+    @Test
+    void testFindByEmailPasswordFail() {
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setEmail("rasya@gmail.com");
+        sellerEntity.setPassword("rahasia");
+
+        SellerEntity byEmailPassword = sellerRepo.findByEmailPassword(sellerEntity);
+
+        Assertions.assertNull(byEmailPassword);
+    }
 }

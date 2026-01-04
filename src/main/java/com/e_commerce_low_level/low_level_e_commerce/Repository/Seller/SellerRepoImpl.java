@@ -8,6 +8,11 @@ import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityMana
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -155,6 +160,53 @@ public class SellerRepoImpl implements SellerRepo {
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            transaction.rollback();
+            return null;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
+
+    @Override
+    public SellerEntity findByEmailPassword(SellerEntity sellerEntity) {
+        EntityManager entityManager = UtilityEntityManagerFactory
+                .getEntityManagerFactory().createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            // SELECT * FROM customer;
+            CriteriaQuery<SellerEntity> query = criteriaBuilder
+                    .createQuery(SellerEntity.class);
+            Root<SellerEntity> se = query.from(SellerEntity.class);
+            query.select(se);
+
+            // WHERE email = ? And password == ?;
+            Predicate emailEqual = criteriaBuilder
+                    .equal(se.get("email"), sellerEntity.getEmail()); // email
+
+            Predicate passwordEqual = criteriaBuilder
+                    .equal(se.get("password"), sellerEntity.getPassword()); // password
+
+            Predicate and = criteriaBuilder.and(emailEqual, passwordEqual); // AND
+
+            query.where(and); // WHERE
+
+            TypedQuery<SellerEntity> typedQuery = entityManager.createQuery(query);
+            SellerEntity singleResult = typedQuery.getSingleResult();
+
+            transaction.commit();
+
+            return singleResult;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
             transaction.rollback();
             return null;
 
