@@ -12,4 +12,6 @@ public interface SellerService {
 
     SellerEntity find(String idSeller);
 
+    SellerEntity findByEmailAndPassword(String email, String password);
+
 }

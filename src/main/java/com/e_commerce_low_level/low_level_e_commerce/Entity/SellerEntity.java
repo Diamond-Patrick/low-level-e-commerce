@@ -2,6 +2,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Entity;
 
 import java.util.List;
 
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Login;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -38,11 +40,11 @@ public class SellerEntity {
     @NotBlank(message = "shop name must not be blank")
     private String ownerName;
 
-    @NotBlank(message = "email must not be blank")
-    @Email(message = "email invalid")
+    @NotBlank(message = "email must not be blank", groups = Login.class)
+    @Email(message = "email invalid", groups = Login.class)
     private String email;
 
-    @NotBlank(message = "password must not be blank")
+    @NotBlank(message = "password must not be blank", groups = Login.class)
     private String password;
 
     @Embedded

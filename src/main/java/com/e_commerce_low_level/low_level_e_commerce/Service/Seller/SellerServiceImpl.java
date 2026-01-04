@@ -4,6 +4,7 @@ import java.util.Set;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
 import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Interface.Login;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
 
@@ -108,6 +109,28 @@ public class SellerServiceImpl implements SellerService {
                 .validateProperty(sellerEntity, "id");
 
         return validateProperty.isEmpty() ? sellerRepo.find(sellerEntity) : null;
+    }
+
+    @Override
+    public SellerEntity findByEmailAndPassword(String email, String password) {
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setEmail(email);
+        sellerEntity.setPassword(password);
+
+        Validator validator = UtilityValidator.getValidator();
+
+        Set<ConstraintViolation<SellerEntity>> validate = validator
+                .validate(sellerEntity, Login.class);
+
+        // if (validate.isEmpty()) {
+        // return sellerRepo.findByEmailPassword(sellerEntity);
+
+        // } else {
+        // return null;
+        // }
+
+        return validate.isEmpty() ? sellerRepo.findByEmailPassword(sellerEntity) : null;
     }
 
 }

@@ -145,4 +145,58 @@ public class SellerServiceTest {
         boolean update = sellerService.update("3333", sellerEntity);
         Assertions.assertFalse(update);
     }
+
+    @Test
+    void testFindByEmailAndPasswordSuccess() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("rasya@gmail.com", "secret");
+
+        Assertions.assertNotNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindByEmailAndPasswordFail() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("fkfk@gmail.com", "secret");
+
+        Assertions.assertNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindByEmailAndPasswordEmailFail() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("rasya.com", "secret");
+
+        Assertions.assertNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindByEmailAndPasswordPasswordBlank() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("rasya@gmail.com", "    ");
+
+        Assertions.assertNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindByEmailAndPasswordEmailBlank() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("  ", "secret");
+
+        Assertions.assertNull(byEmailAndPassword);
+    }
+
+    @Test
+    void testFindByEmailAndPasswordBlank() {
+
+        SellerEntity byEmailAndPassword = sellerService
+                .findByEmailAndPassword("  ", "  ");
+
+        Assertions.assertNull(byEmailAndPassword);
+    }
 }
