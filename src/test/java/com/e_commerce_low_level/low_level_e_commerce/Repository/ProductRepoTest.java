@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepoImpl;
 
@@ -23,12 +24,15 @@ public class ProductRepoTest {
         byte[] allBytes = Files.readAllBytes(path);
 
         ProductEntity product = new ProductEntity();
-        product.setKodeProduct("tr311");
-        product.setName("Mouse");
-        product.setHarga(30.00);
-        product.setStock(10);
-        product.setDescription("ini mouse ergonomis");
+        product.setKodeProduct("JK124");
+        product.setName("Laptop Asus");
+        product.setHarga(56.00);
+        product.setStock(45);
+        product.setDescription("ini Laptop");
         product.setGambar(allBytes);
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("38a84");
 
         boolean insert = productRepo.insert(product);
 
