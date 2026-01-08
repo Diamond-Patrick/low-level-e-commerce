@@ -16,4 +16,6 @@ public interface ProductRepo {
 
     List<ProductEntity> findByName(ProductEntity productEntity);
 
+    boolean insertOmset(String kodeProduct, String idSeller);
+
 }

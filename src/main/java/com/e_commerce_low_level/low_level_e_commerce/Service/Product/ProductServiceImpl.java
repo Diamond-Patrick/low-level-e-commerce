@@ -86,13 +86,6 @@ public class ProductServiceImpl implements ProductService {
         Set<ConstraintViolation<ProductEntity>> validateProperty = validator
                 .validateProperty(productEntity, "name", Essential.class);
 
-        // if (validateProperty.isEmpty()) {
-        // List<ProductEntity> byName = findByName(productEntity.getName());
-        // return byName;
-        // } else {
-        // return null;
-        // }
-
         return validateProperty.isEmpty() ? productRepo.findByName(productEntity) : null;
     }
 

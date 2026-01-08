@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepoImpl;
 
@@ -24,15 +23,12 @@ public class ProductRepoTest {
         byte[] allBytes = Files.readAllBytes(path);
 
         ProductEntity product = new ProductEntity();
-        product.setKodeProduct("JK124");
+        product.setKodeProduct("JK122");
         product.setName("Laptop Asus");
         product.setHarga(56.00);
         product.setStock(45);
         product.setDescription("ini Laptop");
         product.setGambar(allBytes);
-
-        SellerEntity sellerEntity = new SellerEntity();
-        sellerEntity.setId("38a84");
 
         boolean insert = productRepo.insert(product);
 
@@ -116,5 +112,32 @@ public class ProductRepoTest {
             System.out.println(productEntity2.getDescription());
         }
 
+    }
+
+    @Test
+    void testInsertOmsetSuccess() {
+
+        boolean insertOmset = productRepo
+                .insertOmset("AS002", "8ca3b");
+
+        Assertions.assertTrue(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetFail() {
+
+        boolean insertOmset = productRepo
+                .insertOmset("11111", "8ca3b");
+
+        Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetFail2() {
+
+        boolean insertOmset = productRepo
+                .insertOmset("AS002", "yyyy");
+
+        Assertions.assertFalse(insertOmset);
     }
 }

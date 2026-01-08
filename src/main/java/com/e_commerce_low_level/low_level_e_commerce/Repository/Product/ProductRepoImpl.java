@@ -3,6 +3,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository.Product;
 import java.util.List;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityManagerFactory;
 
 import jakarta.persistence.EntityManager;
@@ -182,6 +183,40 @@ public class ProductRepoImpl implements ProductRepo {
             log.error(e.getMessage());
             transaction.rollback();
             return null;
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
+
+    public boolean insertOmset(String kodeProduct, String idSeller) {
+
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            SellerEntity sellerEntity = entityManager
+                    .find(SellerEntity.class, idSeller);
+
+            ProductEntity productEntity = entityManager
+                    .find(ProductEntity.class, kodeProduct);
+
+            sellerEntity.getProduct().add(productEntity);
+            productEntity.getSeller().add(sellerEntity);
+
+            entityManager.merge(sellerEntity);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transaction.rollback();
+            return false;
+
         } finally {
             entityManager.close();
             log.info("entityManager already closed !");
