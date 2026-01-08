@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- start navbar -->
+    <div class="mt-10 ml-32">
+        <a href="/" class="inline-block w-auto h-10 mt-1 border rounded-full
+                              bg-cyan-400 text-white font-semibold hover:bg-cyan-600
+                              focus:bg-cyan-700 focus:ring-4 focus:ring-cyan-200
+                              hover:cursor-pointer px-5 leading-10 text-center">
+                      Back
+        </a>
+    </div>
+    <!-- end navbar -->
+
+    <h1 class="font-bold text-center text-4xl mt-25">Add New Product</h1>
+     <form action="" method="post" enctype="multipart/form-data">
+        <div>
+            <div class="max-w-lg h-auto mx-auto mt-10 border-2 border-cyan-500 shadow-2xl shadow-cyan-500 p-5">
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Kode Barang</h4>
+                    <input type="text" placeholder="A001" name="kodeBarang" class="w-full border-2 border-cyan-500 shadow-lg 
+                     pl-3 pb-1 rounded
+                    placeholder:text-slate-500">
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Nama Barang</h4>
+                    <input type="text" placeholder="Sepatu Convert" name="namaBarang" class="w-full border-2 border-cyan-500 shadow-lg 
+                     pl-3 pb-1 rounded
+                    placeholder:text-slate-500">
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Harga per produk</h4>
+                    <input type="number" placeholder="20.00" name="harga" class="w-full pb-1 border-2 border-cyan-500 shadow-lg pl-3 
+                   border placeholder:text-slate-500 rounded">
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Stock</h4>
+                    <input type="number" placeholder="100" name="stock" class="w-full border-2 border-cyan-500 shadow-lg 
+                     pl-3 pb-1 rounded
+                    placeholder:text-slate-500">
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Description</h4>
+                    <textarea type="text" placeholder="produck ini memiliki berbagai macam varian warna dan ukuran" name="description"
+                     class="w-full h-auto border-2 border-cyan-500 shadow-lg 
+                     pl-3 pb-1 rounded
+                    placeholder:text-slate-500"
+                    oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-semibold mb-1">Gambar</h4>
+                    <input type="file" name="gambar" accept="image/*" class="w-full  
+                     pl-3 pb-1 rounded
+                    placeholder:text-slate-500">
+                </div>
+                <div class="mt-7">
+                    <button class="w-20 h-10 block mx-auto border rounded-full
+                     bg-cyan-500 text-white font-semibold hover:bg-cyan-600
+                     focus:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 
+                     hover:cursor-pointer" type="submit">Add</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
