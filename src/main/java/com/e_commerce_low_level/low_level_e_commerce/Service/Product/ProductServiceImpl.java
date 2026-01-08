@@ -110,8 +110,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean deleteOmset(String kodeProduct, String idSeller) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteOmset'");
+
+        if (kodeProduct.trim().isBlank() || idSeller.trim().isBlank()) {
+            return false;
+        } else {
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setKodeProduct(kodeProduct);
+
+            SellerEntity sellerEntity = new SellerEntity();
+            sellerEntity.setId(idSeller);
+
+            return productRepo.deleteOmset(productEntity, sellerEntity);
+        }
     }
 
 }

@@ -183,4 +183,52 @@ public class ProductServiceTest {
 
         Assertions.assertFalse(insertOmset);
     }
+
+    @Test
+    void testDeleteOmsetSuccess() {
+        boolean deleteOmset = productService
+                .deleteOmset("JK125", "38a84");
+
+        Assertions.assertTrue(deleteOmset);
+    }
+
+    @Test
+    void testDeleteOmsetFail1() {
+        boolean deleteOmset = productService
+                .deleteOmset("shkjs", "38a84");
+
+        Assertions.assertFalse(deleteOmset);
+    }
+
+    @Test
+    void testDeleteOmsetFail2() {
+        boolean deleteOmset = productService
+                .deleteOmset("AS002", "kjshskja");
+
+        Assertions.assertFalse(deleteOmset);
+    }
+
+    @Test
+    void testDeleteOmsetBlankKodeProduct() {
+        boolean deleteOmset = productService
+                .deleteOmset("   ", "8ca3b");
+
+        Assertions.assertFalse(deleteOmset);
+    }
+
+    @Test
+    void testDeleteOmsetBlankseller() {
+        boolean deleteOmset = productService
+                .deleteOmset("AS002", "  ");
+
+        Assertions.assertFalse(deleteOmset);
+    }
+
+    @Test
+    void testDeleteOmsetBlankBoth() {
+        boolean deleteOmset = productService
+                .deleteOmset("", "  ");
+
+        Assertions.assertFalse(deleteOmset);
+    }
 }
