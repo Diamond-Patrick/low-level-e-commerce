@@ -136,4 +136,51 @@ public class ProductServiceTest {
 
     }
 
+    @Test
+    void testInsertOmsetSuccess() {
+        boolean insertOmset = productService
+                .insertOmset("JK125", "38a84");
+
+        Assertions.assertTrue(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetFail1() {
+        boolean insertOmset = productService
+                .insertOmset("hishdo", "38a84");
+
+        Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetFail2() {
+        boolean insertOmset = productService
+                .insertOmset("JK125", "jhsxjhjsxk");
+
+        Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetBlankKodeProduct() {
+        boolean insertOmset = productService
+                .insertOmset("   ", "jhsxjhjsxk");
+
+        Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetBlankIdSeller() {
+        boolean insertOmset = productService
+                .insertOmset("JK125", "   ");
+
+        Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testInsertOmsetBlankBoth() {
+        boolean insertOmset = productService
+                .insertOmset("", "   ");
+
+        Assertions.assertFalse(insertOmset);
+    }
 }

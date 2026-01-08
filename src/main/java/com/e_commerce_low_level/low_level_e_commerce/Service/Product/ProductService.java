@@ -16,4 +16,8 @@ public interface ProductService {
 
     List<ProductEntity> findByName(String name);
 
+    boolean insertOmset(String kodeProduct, String idSeller);
+
+    boolean deleteOmset(String kodeProduct, String idSeller);
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Interface.Essential;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;
@@ -87,6 +88,30 @@ public class ProductServiceImpl implements ProductService {
                 .validateProperty(productEntity, "name", Essential.class);
 
         return validateProperty.isEmpty() ? productRepo.findByName(productEntity) : null;
+    }
+
+    @Override
+    public boolean insertOmset(String kodeProduct, String idSeller) {
+
+        if (kodeProduct.trim().isBlank() || idSeller.trim().isBlank()) {
+
+            return false;
+        } else {
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setKodeProduct(kodeProduct);
+
+            SellerEntity sellerEntity = new SellerEntity();
+            sellerEntity.setId(idSeller);
+
+            return productRepo.insertOmset(productEntity, sellerEntity);
+        }
+
+    }
+
+    @Override
+    public boolean deleteOmset(String kodeProduct, String idSeller) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteOmset'");
     }
 
 }
