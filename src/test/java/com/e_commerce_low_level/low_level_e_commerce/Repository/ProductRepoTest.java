@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepoImpl;
 
@@ -117,17 +118,27 @@ public class ProductRepoTest {
     @Test
     void testInsertOmsetSuccess() {
 
-        boolean insertOmset = productRepo
-                .insertOmset("AS002", "8ca3b");
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("JK124");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("8ca3b");
+
+        boolean insertOmset = productRepo.insertOmset(productEntity, sellerEntity);
 
         Assertions.assertTrue(insertOmset);
     }
 
     @Test
     void testInsertOmsetFail() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("11111");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("8ca3b");
 
         boolean insertOmset = productRepo
-                .insertOmset("11111", "8ca3b");
+                .insertOmset(productEntity, sellerEntity);
 
         Assertions.assertFalse(insertOmset);
     }
@@ -135,9 +146,54 @@ public class ProductRepoTest {
     @Test
     void testInsertOmsetFail2() {
 
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("AS002");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("yyyy");
+
         boolean insertOmset = productRepo
-                .insertOmset("AS002", "yyyy");
+                .insertOmset(productEntity, sellerEntity);
 
         Assertions.assertFalse(insertOmset);
+    }
+
+    @Test
+    void testRemoveOmsetSuccess() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("JK124");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("8ca3b");
+
+        boolean deleteOmset = productRepo.deleteOmset(productEntity, sellerEntity);
+
+        Assertions.assertTrue(deleteOmset);
+    }
+
+    @Test
+    void testRemoveOmsetFail() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("J4");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("8ca3b");
+
+        boolean deleteOmset = productRepo.deleteOmset(productEntity, sellerEntity);
+
+        Assertions.assertFalse(deleteOmset);
+    }
+
+    @Test
+    void testRemoveOmsetFail2() {
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setKodeProduct("JK124");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setId("jkllj");
+
+        boolean deleteOmset = productRepo.deleteOmset(productEntity, sellerEntity);
+
+        Assertions.assertFalse(deleteOmset);
     }
 }

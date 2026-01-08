@@ -3,6 +3,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository.Product;
 import java.util.List;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
 
 public interface ProductRepo {
 
@@ -16,6 +17,8 @@ public interface ProductRepo {
 
     List<ProductEntity> findByName(ProductEntity productEntity);
 
-    boolean insertOmset(String kodeProduct, String idSeller);
+    boolean insertOmset(ProductEntity kodeProduct, SellerEntity idSeller);
+
+    boolean deleteOmset(ProductEntity kodeProduct, SellerEntity idSeller);
 
 }

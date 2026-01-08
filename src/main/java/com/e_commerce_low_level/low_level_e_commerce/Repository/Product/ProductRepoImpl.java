@@ -189,7 +189,7 @@ public class ProductRepoImpl implements ProductRepo {
         }
     }
 
-    public boolean insertOmset(String kodeProduct, String idSeller) {
+    public boolean insertOmset(ProductEntity kodeProduct, SellerEntity idSeller) {
 
         EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
                 .createEntityManager();
@@ -199,13 +199,46 @@ public class ProductRepoImpl implements ProductRepo {
             transaction.begin();
 
             SellerEntity sellerEntity = entityManager
-                    .find(SellerEntity.class, idSeller);
+                    .find(SellerEntity.class, idSeller.getId());
 
             ProductEntity productEntity = entityManager
-                    .find(ProductEntity.class, kodeProduct);
+                    .find(ProductEntity.class, kodeProduct.getKodeProduct());
 
             sellerEntity.getProduct().add(productEntity);
             productEntity.getSeller().add(sellerEntity);
+
+            entityManager.merge(sellerEntity);
+
+            transaction.commit();
+            return true;
+
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transaction.rollback();
+            return false;
+
+        } finally {
+            entityManager.close();
+            log.info("entityManager already closed !");
+        }
+    }
+
+    public boolean deleteOmset(ProductEntity kodeProduct, SellerEntity idSeller) {
+        EntityManager entityManager = UtilityEntityManagerFactory.getEntityManagerFactory()
+                .createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+
+            SellerEntity sellerEntity = entityManager
+                    .find(SellerEntity.class, idSeller.getId());
+
+            ProductEntity productEntity = entityManager
+                    .find(ProductEntity.class, kodeProduct.getKodeProduct());
+
+            sellerEntity.getProduct().remove(productEntity);
+            productEntity.getSeller().remove(sellerEntity);
 
             entityManager.merge(sellerEntity);
 
