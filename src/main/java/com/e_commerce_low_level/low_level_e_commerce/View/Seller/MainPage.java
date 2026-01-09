@@ -41,6 +41,11 @@ public class MainPage extends HttpServlet {
                             class="btn btn-primary px-4 py-1">
                             Edit
                         </a>
+
+                        <input type="hidden" name="kodeproduct" value="%s">
+                        <button type = "submit" class="btn btn-danger px-4 py-1">
+                            Delete
+                        </button>
                     </td>
                     </tr>
                 </tbody>
@@ -62,6 +67,7 @@ public class MainPage extends HttpServlet {
                                     t.getName(),
                                     t.getHarga().toString(),
                                     t.getStock().toString(),
+                                    t.getKodeProduct(),
                                     t.getKodeProduct()));
                         }
                     });
@@ -75,4 +81,22 @@ public class MainPage extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String kodeproduct = req.getParameter("kodeproduct");
+
+        Cookie[] cookies = req.getCookies();
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("id")) {
+                boolean deleteOmset = productService.deleteOmset(kodeproduct, cookie.getValue());
+
+                if (deleteOmset) {
+                    productService.remove(kodeproduct);
+
+                    resp.sendRedirect(req.getRequestURI());
+                }
+            }
+        }
+    }
 }
