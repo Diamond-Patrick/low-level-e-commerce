@@ -37,7 +37,7 @@ public class MainPage extends HttpServlet {
                     <td>%s</td>
                     <td>%s</td>
                     <td>
-                        <a href=""
+                        <a href="/editproduct?kodeproduct=%s"
                             class="btn btn-primary px-4 py-1">
                             Edit
                         </a>
@@ -61,7 +61,8 @@ public class MainPage extends HttpServlet {
                                     t.getKodeProduct(),
                                     t.getName(),
                                     t.getHarga().toString(),
-                                    t.getStock().toString()));
+                                    t.getStock().toString(),
+                                    t.getKodeProduct()));
                         }
                     });
                 });
