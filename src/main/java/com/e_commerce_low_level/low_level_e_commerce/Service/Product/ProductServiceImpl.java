@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity product = new ProductEntity();
 
-        if (productEntity.getName() != null)
+        if (!productEntity.getName().trim().isBlank())
             product.setName(productEntity.getName());
 
         if (productEntity.getHarga() != null)
@@ -61,14 +61,10 @@ public class ProductServiceImpl implements ProductService {
         if (productEntity.getStock() != null)
             product.setStock(productEntity.getStock());
 
-        if (productEntity.getDescription() != null)
+        if (!productEntity.getDescription().trim().isBlank())
             product.setDescription(productEntity.getDescription());
 
-        Validator validator = UtilityValidator.getValidator();
-        Set<ConstraintViolation<ProductEntity>> validate = validator
-                .validate(product, Essential.class);
-
-        return validate.isEmpty() ? productRepo.update(id, product) : false;
+        return productRepo.update(id, product);
     }
 
     @Override
