@@ -3,8 +3,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.Address;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Seller.SellerService;

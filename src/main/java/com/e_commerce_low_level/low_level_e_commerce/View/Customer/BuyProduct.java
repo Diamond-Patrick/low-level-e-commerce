@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.OrderEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.PaymentMethod;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.Address;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.OrderEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.PaymentMethod;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepo;

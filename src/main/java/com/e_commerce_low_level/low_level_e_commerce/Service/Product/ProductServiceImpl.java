@@ -3,8 +3,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Service.Product;
 import java.util.List;
 import java.util.Set;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Interface.Essential;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Product.ProductRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;

@@ -2,7 +2,7 @@ package com.e_commerce_low_level.low_level_e_commerce.Service.Product;
 
 import java.util.List;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.ProductEntity;
 
 public interface ProductService {
 

@@ -2,8 +2,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository.Seller;
 
 import java.util.UUID;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.Address;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityManagerFactory;
 
 import jakarta.persistence.EntityManager;

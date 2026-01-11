@@ -2,8 +2,8 @@ package com.e_commerce_low_level.low_level_e_commerce.Service.Customer;
 
 import java.util.Set;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.Address;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.Address;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.CustomerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Interface.Login;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityValidator;

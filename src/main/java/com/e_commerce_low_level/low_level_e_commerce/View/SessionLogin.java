@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.SellerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.SellerEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Customer.CustomerRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Seller.SellerRepo;

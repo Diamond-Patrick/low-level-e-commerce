@@ -3,10 +3,10 @@ package com.e_commerce_low_level.low_level_e_commerce.Repository.Order;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.e_commerce_low_level.low_level_e_commerce.Entity.CustomerEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.OrderEntity;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.PaymentMethod;
-import com.e_commerce_low_level.low_level_e_commerce.Entity.ProductEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.CustomerEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.OrderEntity;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.PaymentMethod;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.ProductEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Utilities.UtilityEntityManagerFactory;
 
 import jakarta.persistence.EntityManager;
