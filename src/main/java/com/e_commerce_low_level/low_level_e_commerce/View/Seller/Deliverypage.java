@@ -3,8 +3,10 @@ package com.e_commerce_low_level.low_level_e_commerce.View.Seller;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import com.e_commerce_low_level.low_level_e_commerce.Entities.Address;
+import com.e_commerce_low_level.low_level_e_commerce.Entities.OrderEntity;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepo;
 import com.e_commerce_low_level.low_level_e_commerce.Repository.Order.OrderRepoImpl;
 import com.e_commerce_low_level.low_level_e_commerce.Service.Order.OrderService;
@@ -82,6 +84,62 @@ public class Deliverypage extends HttpServlet {
         }
 
         String replace = string.replace("$cardDelivery", stringBuilder.toString());
+
+        resp.getWriter().println(replace);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Path of = Path.of("src/main/resources/html/Seller/deliveryPage.html");
+
+        String string = Files.readString(of);
+
+        String paymentMethod = req.getParameter("paymentMethod");
+
+        String deliveryCard = """
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><a>%s</a></h5>
+                            <p class="card-text">Buyer : <b>%s</b></p>
+                            <p class="card-text">Purchase Quantity :<b>%s</b></p>
+                            <p class="card-text">Payment Method : <b>%s</b></p>
+                            <p class="card-text">Address : <b>%s</b></p>
+                        </div>
+                    </div>
+                </div>
+                """;
+
+        Cookie[] cookies = req.getCookies();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Cookie cookie : cookies) {
+
+            orderService.findByPaymentMethod(paymentMethod).forEach(t -> {
+
+                t.getKodeProduct().getSeller().forEach(seller -> {
+                    if (seller.getId().equals(cookie.getValue())) {
+                        Address address = t.getIdCustomer().getAddress();
+
+                        String custAddress = address.getNoRumah() + ", " + address.getNamaJalan() +
+                                ", "
+                                + address.getKelurahan() + ", " +
+                                address.getKota() + ", " + address.getProvinsi();
+
+                        stringBuilder.append(String.format(
+                                deliveryCard,
+                                t.getKodeProduct().getName(),
+                                t.getIdCustomer().getName(),
+                                t.getOrderQuantities().toString(),
+                                t.getPaymentMethod().toString(),
+                                custAddress));
+                    }
+                });
+
+            });
+        }
+
+        String replace = string.replace("$cardDelivery", stringBuilder);
 
         resp.getWriter().println(replace);
     }

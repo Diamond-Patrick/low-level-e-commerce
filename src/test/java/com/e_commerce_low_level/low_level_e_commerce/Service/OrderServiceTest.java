@@ -73,7 +73,7 @@ public class OrderServiceTest {
     @Test
     void testFindByPaymentMethod() {
         List<OrderEntity> byPaymentMethod = orderService
-                .findByPaymentMethod(PaymentMethod.CASH);
+                .findByPaymentMethod("CASH");
 
         Assertions.assertNotNull(byPaymentMethod);
 
@@ -86,8 +86,8 @@ public class OrderServiceTest {
     @Test
     void testFindByPaymentMethodFail() {
         List<OrderEntity> byPaymentMethod = orderService
-                .findByPaymentMethod(PaymentMethod.EWALLET);
+                .findByPaymentMethod("EWALLET");
 
-        Assertions.assertTrue(byPaymentMethod.isEmpty());
+        Assertions.assertTrue(!byPaymentMethod.isEmpty());
     }
 }

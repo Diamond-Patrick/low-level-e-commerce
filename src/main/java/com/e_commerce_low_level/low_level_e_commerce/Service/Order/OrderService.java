@@ -13,6 +13,6 @@ public interface OrderService {
 
     List<OrderEntity> findAll();
 
-    List<OrderEntity> findByPaymentMethod(PaymentMethod paymentMethod);
+    List<OrderEntity> findByPaymentMethod(String paymentMethod);
 
 }

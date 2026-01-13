@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderEntity> findByPaymentMethod(PaymentMethod paymentMethod) {
-        return orderRepo.findByPaymentMethod(paymentMethod);
+    public List<OrderEntity> findByPaymentMethod(String paymentMethod) {
+        return orderRepo.findByPaymentMethod(PaymentMethod.valueOf(paymentMethod));
     }
 }
