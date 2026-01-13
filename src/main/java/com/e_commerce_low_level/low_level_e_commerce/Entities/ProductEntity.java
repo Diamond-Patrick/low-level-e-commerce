@@ -6,6 +6,7 @@ import com.e_commerce_low_level.low_level_e_commerce.Interface.Essential;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
@@ -53,6 +54,6 @@ public class ProductEntity {
     @OneToMany
     private List<OrderEntity> oders;
 
-    @ManyToMany(mappedBy = "product")
+    @ManyToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<SellerEntity> seller;
 }
