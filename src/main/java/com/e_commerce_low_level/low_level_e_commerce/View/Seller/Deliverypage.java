@@ -25,8 +25,7 @@ public class Deliverypage extends HttpServlet {
     private OrderRepo orderRepo = new OrderRepoImpl();
     private OrderService orderService = new OrderServiceImpl(orderRepo);
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private String renderingCardDelivery(HttpServletRequest request, List<OrderEntity> order) throws IOException {
         Path of = Path.of("src/main/resources/html/Seller/deliveryPage.html");
 
         String string = Files.readString(of);
@@ -45,15 +44,14 @@ public class Deliverypage extends HttpServlet {
                 </div>
                 """;
 
-        Cookie[] cookies = req.getCookies();
+        Cookie[] cookies = request.getCookies();
         StringBuilder stringBuilder = new StringBuilder();
 
-        // get cookie named "id"
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("id")) {
 
                 // find all data in order table
-                orderService.findAll().forEach(t -> {
+                order.forEach(t -> {
 
                     // focus on product column and find the seller
                     t.getKodeProduct().getSeller().forEach(seller -> {
@@ -76,72 +74,29 @@ public class Deliverypage extends HttpServlet {
                                     t.getPaymentMethod().toString(),
                                     custAddress));
                         }
-
                     });
-
                 });
             }
         }
 
         String replace = string.replace("$cardDelivery", stringBuilder.toString());
+        return replace;
+    }
 
-        resp.getWriter().println(replace);
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String renderingCardDelivery = renderingCardDelivery(req, orderService.findAll());
+
+        resp.getWriter().println(renderingCardDelivery);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Path of = Path.of("src/main/resources/html/Seller/deliveryPage.html");
-
-        String string = Files.readString(of);
 
         String paymentMethod = req.getParameter("paymentMethod");
 
-        String deliveryCard = """
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title"><a>%s</a></h5>
-                            <p class="card-text">Buyer : <b>%s</b></p>
-                            <p class="card-text">Purchase Quantity :<b>%s</b></p>
-                            <p class="card-text">Payment Method : <b>%s</b></p>
-                            <p class="card-text">Address : <b>%s</b></p>
-                        </div>
-                    </div>
-                </div>
-                """;
-
-        Cookie[] cookies = req.getCookies();
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (Cookie cookie : cookies) {
-
-            orderService.findByPaymentMethod(paymentMethod).forEach(t -> {
-
-                t.getKodeProduct().getSeller().forEach(seller -> {
-                    if (seller.getId().equals(cookie.getValue())) {
-                        Address address = t.getIdCustomer().getAddress();
-
-                        String custAddress = address.getNoRumah() + ", " + address.getNamaJalan() +
-                                ", "
-                                + address.getKelurahan() + ", " +
-                                address.getKota() + ", " + address.getProvinsi();
-
-                        stringBuilder.append(String.format(
-                                deliveryCard,
-                                t.getKodeProduct().getName(),
-                                t.getIdCustomer().getName(),
-                                t.getOrderQuantities().toString(),
-                                t.getPaymentMethod().toString(),
-                                custAddress));
-                    }
-                });
-
-            });
-        }
-
-        String replace = string.replace("$cardDelivery", stringBuilder);
-
-        resp.getWriter().println(replace);
+        resp.getWriter().println(renderingCardDelivery(req, orderService.findByPaymentMethod(paymentMethod)));
     }
 
 }
