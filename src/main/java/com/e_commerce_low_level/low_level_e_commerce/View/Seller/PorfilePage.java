@@ -86,4 +86,23 @@ public class PorfilePage extends HttpServlet {
 
         resp.getWriter().println(replace);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Cookie[] cookies = req.getCookies();
+
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("id")) {
+
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                cookie.setValue("");
+                resp.addCookie(cookie);
+
+                resp.sendRedirect("/login");
+            }
+        }
+
+    }
 }
