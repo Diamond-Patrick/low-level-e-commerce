@@ -114,4 +114,38 @@ public class EditProfile extends HttpServlet {
 
         resp.getWriter().println(replace);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String shopName = req.getParameter("shopName");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String noRumah = req.getParameter("noRumah");
+        String jalan = req.getParameter("jalan");
+        String kelurahan = req.getParameter("kelurahan");
+        String kota = req.getParameter("city");
+        String province = req.getParameter("province");
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setOwnerName(name);
+        sellerEntity.setShopName(shopName);
+        sellerEntity.setEmail(email);
+        sellerEntity.setPassword(password);
+        sellerEntity.setAddress(new Address(noRumah, jalan, kelurahan, kota, province));
+
+        Cookie[] cookies = req.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("id")) {
+
+                boolean update = sellerService.update(cookie.getValue(), sellerEntity);
+
+                if (update) {
+                    resp.sendRedirect("/productselling");
+                } else {
+                    resp.sendRedirect(req.getRequestURI());
+                }
+            }
+        }
+    }
 }

@@ -58,31 +58,31 @@ public class SellerServiceImpl implements SellerService {
             Address sellerAddress = sellerId.getAddress();
             Address sellerParam = sellerEntity.getAddress();
 
-            if (sellerEntity.getOwnerName() != null)
+            if (!sellerEntity.getOwnerName().trim().isBlank())
                 sellerId.setOwnerName(sellerEntity.getOwnerName());
 
-            if (sellerEntity.getEmail() != null)
+            if (!sellerEntity.getEmail().trim().isBlank())
                 sellerId.setEmail(sellerEntity.getEmail());
 
-            if (sellerEntity.getPassword() != null)
+            if (!sellerEntity.getPassword().trim().isBlank())
                 sellerId.setPassword(sellerEntity.getPassword());
 
-            if (sellerEntity.getShopName() != null)
+            if (!sellerEntity.getShopName().trim().isBlank())
                 sellerId.setShopName(sellerEntity.getShopName());
 
-            if (sellerParam.getNoRumah() != null)
+            if (!sellerParam.getNoRumah().trim().isBlank())
                 sellerAddress.setNoRumah(sellerParam.getNoRumah());
 
-            if (sellerParam.getNamaJalan() != null)
+            if (!sellerParam.getNamaJalan().trim().isBlank())
                 sellerAddress.setNamaJalan(sellerParam.getNamaJalan());
 
-            if (sellerParam.getKelurahan() != null)
+            if (!sellerParam.getKelurahan().trim().isBlank())
                 sellerAddress.setKelurahan(sellerParam.getKelurahan());
 
-            if (sellerParam.getKota() != null)
+            if (!sellerParam.getKota().trim().isBlank())
                 sellerAddress.setKota(sellerParam.getKota());
 
-            if (sellerParam.getProvinsi() != null)
+            if (!sellerParam.getProvinsi().trim().isBlank())
                 sellerAddress.setProvinsi(sellerParam.getProvinsi());
 
             Validator validator = UtilityValidator.getValidator();
