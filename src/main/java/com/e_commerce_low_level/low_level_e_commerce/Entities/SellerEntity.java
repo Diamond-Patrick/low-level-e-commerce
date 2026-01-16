@@ -29,7 +29,7 @@ import lombok.Setter;
 public class SellerEntity {
 
     @Id
-    @NotBlank(message = "id ust not be blank")
+    // @NotBlank(message = "id ust not be blank")
     private String id;
 
     @Column(name = "shop_name")
