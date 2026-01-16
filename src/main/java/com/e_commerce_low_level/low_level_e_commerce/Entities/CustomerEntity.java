@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,10 +35,10 @@ public class CustomerEntity {
     private String name;
 
     @Email(message = "invalid email", groups = Login.class)
-    @NotBlank(message = "email must not be blank", groups = Login.class)
+    @NotBlank(message = "email must not be blank", groups = { Login.class, Default.class })
     private String email;
 
-    @NotBlank(message = "password must not be blank", groups = Login.class)
+    @NotBlank(message = "password must not be blank", groups = { Login.class, Default.class })
     private String password;
 
     @Embedded

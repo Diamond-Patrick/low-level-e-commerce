@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.groups.Default;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +30,6 @@ import lombok.Setter;
 public class SellerEntity {
 
     @Id
-    // @NotBlank(message = "id ust not be blank")
     private String id;
 
     @Column(name = "shop_name")
@@ -40,11 +40,11 @@ public class SellerEntity {
     @NotBlank(message = "shop name must not be blank")
     private String ownerName;
 
-    @NotBlank(message = "email must not be blank", groups = Login.class)
+    @NotBlank(message = "email must not be blank", groups = { Login.class, Default.class })
     @Email(message = "email invalid", groups = Login.class)
     private String email;
 
-    @NotBlank(message = "password must not be blank", groups = Login.class)
+    @NotBlank(message = "password must not be blank", groups = { Login.class, Default.class })
     private String password;
 
     @Embedded
