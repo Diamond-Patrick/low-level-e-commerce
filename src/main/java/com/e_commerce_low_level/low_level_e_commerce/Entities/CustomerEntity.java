@@ -34,7 +34,7 @@ public class CustomerEntity {
     @NotBlank(message = "name must not be blank")
     private String name;
 
-    @Email(message = "invalid email", groups = Login.class)
+    @Email(message = "invalid email", groups = { Login.class, Default.class })
     @NotBlank(message = "email must not be blank", groups = { Login.class, Default.class })
     private String email;
 

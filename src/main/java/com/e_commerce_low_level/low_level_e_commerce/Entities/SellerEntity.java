@@ -41,7 +41,7 @@ public class SellerEntity {
     private String ownerName;
 
     @NotBlank(message = "email must not be blank", groups = { Login.class, Default.class })
-    @Email(message = "email invalid", groups = Login.class)
+    @Email(message = "email invalid", groups = { Login.class, Default.class })
     private String email;
 
     @NotBlank(message = "password must not be blank", groups = { Login.class, Default.class })
